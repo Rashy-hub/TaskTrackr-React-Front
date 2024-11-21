@@ -1,7 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import PropTypes from 'prop-types'
-import { useEffect } from 'react'
 
 const ProtectedRoute = ({ element }) => {
     const { isAuthenticated, authUser } = useAuth()
