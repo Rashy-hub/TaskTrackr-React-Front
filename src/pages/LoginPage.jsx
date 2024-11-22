@@ -19,23 +19,25 @@ const LoginPage = () => {
     const {
         handleSubmit,
         formState: { errors },
+        setError,
     } = methods
 
     useEffect(() => {
-        console.log('Login Page isAuthenticated value is : ' + isAuthenticated)
         if (isAuthenticated) navigate('/todos')
     }, [isAuthenticated, navigate])
 
     const onSubmit = async (formData) => {
-        console.log('LOGING IN')
-
-        navigate('/todos') // s'execute avant que login n'as tout fini , et c'est embettant
         try {
-            console.log('LOGGING IN...')
-            await loginAsync(formData) // Attend la fin de la mutation
+            await loginAsync(formData) // Attends la fin de la mutation
             navigate('/todos') // Navigue uniquement après le succès
         } catch (error) {
-            console.error('Login failed:', error.message)
+            // Exemple d'erreur venant du serveur : error.response.data.error
+
+            let parsedError = JSON.parse(error.message)
+            setError('email', {
+                type: 'server',
+                message: parsedError.error || "Une erreur s'est produite, veuillez réessayer.",
+            })
         }
     }
 

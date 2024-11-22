@@ -27,14 +27,14 @@ const fetchAuth = {
                 } else if (response.status === 500) {
                     throw new Error('Internal Server Error (500): ' + errorText)
                 } else {
-                    throw new Error(`HTTP error: ${response.status} ${response.statusText} - ${errorText}`)
+                    throw new Error(`${errorText}`)
                 }
             }
 
             const data = await response.json()
             return data
         } catch (error) {
-            throw new Error('Could not login: ' + error.message)
+            throw new Error(error.message)
         }
     },
 
