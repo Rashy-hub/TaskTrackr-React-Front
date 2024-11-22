@@ -5,3 +5,35 @@
 .body-bg {
     @apply bg-neutral-900 font-sans text-neutral-100 w-screen h-screen;
 }
+
+/* Styles pour le mode clair */
+div[data-theme='light'] {
+    @apply bg-neutral-100 text-neutral-900;
+}
+
+/* Styles pour le mode sombre */
+div[data-theme='dark'] {
+    @apply bg-neutral-900 text-neutral-100;
+}
+
+header[data-theme='dark'] {
+    @apply bg-neutral-900 text-neutral-100  border-neutral-100;
+}
+header[data-theme='light'] {
+    @apply bg-transparent text-neutral-900  border-neutral-900;
+}
+
+/* Animation de la barre de progression */
+@keyframes progressBar {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+/* Applique l'animation à la barre de progression */
+.animate-progress-bar {
+    animation: progressBar 3s ease-in-out forwards; /* 3s pour la durée de l'animation */
+}

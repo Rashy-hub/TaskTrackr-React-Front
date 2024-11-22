@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import fetchAuth from '../services/fetchAuth'
 import fetchTodos from '../services/fetchTodos'
 
@@ -13,6 +13,9 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [authUser, setAuthUser] = useState(null)
+    const [isAuthChecked, setIsAuthChecked] = useState(false) // Nouvelle variable d'état
+    // Invalide toutes les requêtes liées à l'utilisateur ou au JWT
+    const queryClient = useQueryClient()
 
     // Mutation de login
     const {
@@ -40,10 +43,13 @@ export const AuthProvider = ({ children }) => {
         isError: logoutError,
     } = useMutation({
         mutationFn: fetchAuth.logout,
+
         onSuccess: () => {
             console.log('we just logged out')
             setIsAuthenticated(false)
             setAuthUser(null)
+
+            queryClient.invalidateQueries(['todos']) // Par exemple, si tu caches les infos de l'utilisateur
         },
         onError: (error) => {
             console.error('Logout failed:', error.message)
@@ -64,16 +70,16 @@ export const AuthProvider = ({ children }) => {
         },
     })
 
-    // Fonction asynchrone pour récupérer l'application et valider l'état d'authentification
     const getApp = async () => {
         try {
             const result = await fetchTodos.getTodos()
-            console.log('Todos fetched successfully:', result)
             setIsAuthenticated(true)
+            setIsAuthChecked(true) // Marque que l'authentification a été vérifiée
             return result
         } catch (err) {
             console.error('Error fetching todos:', err.message)
-            setIsAuthenticated(false) // Reset en cas d'échec
+            setIsAuthenticated(false)
+            setIsAuthChecked(true) // Marque que l'authentification a été vérifiée
             throw err
         }
     }
@@ -85,6 +91,7 @@ export const AuthProvider = ({ children }) => {
                 await getApp() // Appelle getApp pour récupérer les données nécessaires
             } catch (error) {
                 console.error('Error in fetchData:', error.message)
+                setIsAuthenticated(false)
             }
         }
 
@@ -116,7 +123,7 @@ export const AuthProvider = ({ children }) => {
                 getApp,
                 todos,
                 error,
-                isLoading,
+                isLoading: !isAuthChecked, // Utilise isAuthChecked pour déterminer si l'auth a été vérifié
             }}
         >
             {children}

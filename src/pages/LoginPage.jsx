@@ -5,14 +5,16 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { authLoginSchema } from '../validators/authValidator'
 import FormInput from '../components/TodoInput'
-import Loader from '../components/Loader'
 import { useAuth } from '../context/AuthContext'
 import { useEffect } from 'react'
+import { useTheme } from '../context/ThemeContext'
 
 const LoginPage = () => {
     const navigate = useNavigate()
+    const { darkMode } = useTheme()
+
     const methods = useForm({ resolver: yupResolver(authLoginSchema) })
-    const { loginAsync, islogin, loginerror, isAuthenticated } = useAuth()
+    const { loginAsync, loginerror, isAuthenticated } = useAuth()
 
     const {
         handleSubmit,
@@ -37,14 +39,13 @@ const LoginPage = () => {
         }
     }
 
-    if (islogin) return <Loader />
     if (loginerror) {
         navigate(`/error/${loginerror.message}`)
     }
 
     return (
         <>
-            <div className="body-bg">
+            <div className={`body-bg`} data-theme={darkMode ? 'dark' : 'light'}>
                 {' '}
                 <Header title="TaskTrackr | Login" />
                 <Main>

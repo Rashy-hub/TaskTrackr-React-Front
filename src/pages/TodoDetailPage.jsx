@@ -5,15 +5,16 @@ import Header from '../layouts/Header'
 import Main from '../layouts/Main'
 
 import TodoDetails from '../components/TodoDetails'
+import { useTheme } from '../context/ThemeContext'
 
 function TodoDetailPage() {
     const { todoId } = useParams()
 
     const navigate = useNavigate()
-
+    const { darkMode } = useTheme()
     return (
         <>
-            <div className="body-bg">
+            <div className={`body-bg`} data-theme={darkMode ? 'dark' : 'light'}>
                 {' '}
                 <Header title="Todo Details" />
                 <Main>

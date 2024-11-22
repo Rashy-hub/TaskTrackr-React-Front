@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import fetchTodos from '../services/fetchTodos'
-import Loader from './Loader'
+import Loader from './ux/Loader'
 import TodoItem from './TodoItem'
 
 function TodoList() {

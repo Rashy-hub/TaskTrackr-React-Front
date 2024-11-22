@@ -1,25 +1,50 @@
 import PropTypes from 'prop-types'
 import SignButton from '../components/ui/SignButton'
 import { useAuth } from '../context/AuthContext'
+import Button from '../components/ui/Button'
+import { useTheme } from '../context/ThemeContext'
+import { FaMoon, FaSun } from 'react-icons/fa' // Font Awesome Moon icon
 
 const Header = ({ title }) => {
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated, islogin } = useAuth()
+    const { darkMode, toggleTheme } = useTheme()
+
+    const handleThemeToggle = () => {
+        toggleTheme()
+    }
 
     return (
-        <header className="w-screen flex justify-between h-20 bg-transparent text-neutral-100 border-b-[1px] border-neutral-100 p-4 text-center mx-auto sticky top-0">
-            <h1 className="text-4xl font-bold">{title}</h1>
+        <>
+            {/* <h1 className={`text-4xl font-bold body-bg`} data-theme={darkMode ? 'dark' : 'light'}> {title} /h1> */}
+            <header
+                className="w-screen flex justify-between h-20 bg-transparent text-neutral-100 border-b-[1px] border-neutral-100 p-4 text-center mx-auto sticky top-0"
+                data-theme={darkMode ? 'dark' : 'light'}
+            >
+                <div className="flex gap-2 ml-2 items-center">
+                    {/* <button ></button> */}
 
-            <div className="flex gap-4 mr-4">
-                {isAuthenticated ? (
-                    <SignButton name="Logout" variant="logout" />
-                ) : (
-                    <>
-                        <SignButton name="Login" variant="login" />
-                        <SignButton name="Register" variant="register" />
-                    </>
-                )}
-            </div>
-        </header>
+                    <Button onClick={handleThemeToggle} icon={darkMode ? <FaSun /> : <FaMoon />}></Button>
+                    <h1 className="text-4xl font-bold">{title}</h1>
+                </div>
+
+                <div className="flex gap-4 mr-4">
+                    {isAuthenticated ? (
+                        <SignButton name="Logout" variant="logout" />
+                    ) : (
+                        <>
+                            <SignButton name="Login" variant="login" />
+                            <SignButton name="Register" variant="register" />
+                        </>
+                    )}
+                </div>
+            </header>
+            {/* Progress Bar Animation */}
+            {islogin && (
+                <div className="w-screen h-[4px] bg-neutral-700">
+                    <div className="progress-bar h-full bg-blue-500 animate-progress-bar"></div>
+                </div>
+            )}
+        </>
     )
 }
 

@@ -11,43 +11,36 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
+import HomePage from './pages/HomePage'
+import { ThemeProvider } from './context/ThemeContext'
 
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <QueryClientProvider client={queryClient}>
         <AuthProvider>
-            <BrowserRouter>
-                <Routes>
-                    {/* Public Routes */}
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
+            <ThemeProvider>
+                <BrowserRouter>
+                    <Routes>
+                        {/* Protected Routes */}
+                        <Route element={<ProtectedRoute />}>
+                            <Route path="/" element={<App />} />
+                            <Route path="/todos" element={<App />} />
+                            <Route path="/todos/:todoId" element={<TodoDetailPage />} />
+                            <Route path="/todos/add" element={<AddTodoPage />} />
+                        </Route>
 
-                    {/* Protected Routes */}
-                    <Route
-                        path="/"
-                        element={<ProtectedRoute element={<App />} />}
-                    />
-                    <Route
-                        path="/todos"
-                        element={<ProtectedRoute element={<App />} />}
-                    />
-                    <Route
-                        path="/todos/:todoId"
-                        element={
-                            <ProtectedRoute element={<TodoDetailPage />} />
-                        }
-                    />
-                    <Route
-                        path="/todos/add"
-                        element={<ProtectedRoute element={<AddTodoPage />} />}
-                    />
+                        {/* Public Routes */}
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/home" element={<HomePage />} />
 
-                    {/* Error Routes */}
-                    <Route path="/error/:message" element={<ErrorPage />} />
-                    <Route path="*" element={<ErrorPage />} />
-                </Routes>
-            </BrowserRouter>
+                        {/* Error Routes */}
+                        <Route path="/error/:message" element={<ErrorPage />} />
+                        <Route path="*" element={<ErrorPage />} />
+                    </Routes>
+                </BrowserRouter>
+            </ThemeProvider>
         </AuthProvider>
     </QueryClientProvider>
 )

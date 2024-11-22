@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import fetchAuth from '../services/fetchAuth'
-import Loader from '../components/Loader'
+import Loader from '../components/ux/Loader'
 import { useMutation } from '@tanstack/react-query'
 import Header from '../layouts/Header'
 import Main from '../layouts/Main'

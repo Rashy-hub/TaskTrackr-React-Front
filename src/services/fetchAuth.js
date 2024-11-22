@@ -21,12 +21,13 @@ const fetchAuth = {
             })
 
             if (!response.ok) {
+                const errorText = await response.text()
                 if (response.status === 404) {
-                    throw new Error('Endpoint not found (404)')
+                    throw new Error('Endpoint not found (404): ' + errorText)
                 } else if (response.status === 500) {
-                    throw new Error('Internal Server Error (500)')
+                    throw new Error('Internal Server Error (500): ' + errorText)
                 } else {
-                    throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
+                    throw new Error(`HTTP error: ${response.status} ${response.statusText} - ${errorText}`)
                 }
             }
 
@@ -51,15 +52,17 @@ const fetchAuth = {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(userData),
+                credentials: 'include', // Inclut les cookies si nécessaire
             })
 
             if (!response.ok) {
+                const errorText = await response.text()
                 if (response.status === 404) {
-                    throw new Error('User not found (404)')
+                    throw new Error('User not found (404): ' + errorText)
                 } else if (response.status === 500) {
-                    throw new Error('Server error (500)')
+                    throw new Error('Server error (500): ' + errorText)
                 } else {
-                    throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
+                    throw new Error(`HTTP error: ${response.status} ${response.statusText} - ${errorText}`)
                 }
             }
 
@@ -69,6 +72,7 @@ const fetchAuth = {
             throw new Error('Something went wrong during registration: ' + error.message)
         }
     },
+
     refresh: async () => {
         try {
             const buildedURL = urlBuilder({
@@ -81,7 +85,7 @@ const fetchAuth = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: 'toto@gmail.com' }),
+                body: JSON.stringify({}), // Pas besoin d'envoyer l'email si le token est déjà dans les cookies
                 credentials: 'include', // Inclut automatiquement les cookies
             })
 
@@ -103,15 +107,16 @@ const fetchAuth = {
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
                 endpoint: '/auth/logout',
-                credentials: 'include',
             })
 
             const response = await fetch(buildedURL, {
                 method: 'POST',
+                credentials: 'include', // Inclut les cookies pour gérer la session
             })
 
             if (!response.ok) {
-                throw new Error('Failed to logout')
+                const errorText = await response.text()
+                throw new Error('Failed to logout: ' + errorText)
             }
 
             const data = await response.json()

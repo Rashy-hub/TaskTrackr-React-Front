@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import PropTypes from 'prop-types'
 import fetchTodos from '../services/fetchTodos'
-import Loader from './Loader'
+import Loader from './ux/Loader'
 import { useNavigate } from 'react-router-dom'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useEffect } from 'react'
