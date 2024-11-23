@@ -32,7 +32,7 @@ const fetchTodos = {
     getTodo: async ({ id }) => {
         try {
             const buildedURL = urlBuilder({
-                baseURL: `${baseUrl}/:id`, //with placeholder to build correctly the new url
+                baseURL: `${baseUrl}/:id`,
                 params: { id },
             })
 

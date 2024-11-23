@@ -17,7 +17,7 @@ const fetchAuth = {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(credentials),
-                credentials: 'include', // Important pour inclure les cookies
+                credentials: 'include',
             })
 
             if (!response.ok) {
@@ -52,7 +52,7 @@ const fetchAuth = {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(userData),
-                credentials: 'include', // Inclut les cookies si nécessaire
+                credentials: 'include',
             })
 
             if (!response.ok) {
@@ -85,8 +85,8 @@ const fetchAuth = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({}), // Pas besoin d'envoyer l'email si le token est déjà dans les cookies
-                credentials: 'include', // Inclut automatiquement les cookies
+                body: JSON.stringify({}),
+                credentials: 'include',
             })
 
             if (!response.ok) {
@@ -111,7 +111,7 @@ const fetchAuth = {
 
             const response = await fetch(buildedURL, {
                 method: 'POST',
-                credentials: 'include', // Inclut les cookies pour gérer la session
+                credentials: 'include',
             })
 
             if (!response.ok) {
