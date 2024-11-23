@@ -5,15 +5,19 @@ import Loader from '../components/ux/Loader'
 import { useMutation } from '@tanstack/react-query'
 import Header from '../layouts/Header'
 import Main from '../layouts/Main'
+import { useTheme } from '../context/ThemeContext'
+import FormInput from '../components/FormTextInput'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { authRegisterSchema } from '../validators/authValidator'
 
 const RegisterPage = () => {
+    const { darkMode } = useTheme()
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
-    } = useForm()
-    const navigate = useNavigate()
+    } = useForm({ resolver: yupResolver(authRegisterSchema) })
 
     const mutation = useMutation({
         mutationFn: fetchAuth.register,
@@ -23,12 +27,12 @@ const RegisterPage = () => {
     })
 
     const onSubmit = (data) => {
-        if (data.password !== data.confirmPassword) {
+        if (data.password !== data.confirmpass) {
             return alert('Passwords do not match')
         }
 
         mutation.mutate({
-            username: data.name,
+            username: data.username,
             email: data.email,
             password: data.password,
         })
@@ -38,70 +42,30 @@ const RegisterPage = () => {
 
     return (
         <>
-            <div className="body-bg">
+            <div className={`body-bg`} data-theme={darkMode ? 'dark' : 'light'}>
                 {' '}
                 <Header title="TaskTrackr | Register" />
                 <Main>
-                    <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 rounded shadow-md w-full max-w-md">
-                        <h2 className="text-2xl font-bold mb-4 text-neutral-900">Register</h2>
+                    <form onSubmit={handleSubmit(onSubmit)} className="form-style">
+                        <h2 className="text-2xl font-bold mb-4">Register</h2>
                         {mutation.error && (
                             <div className="bg-red-100 text-red-600 p-2 rounded mb-4">
                                 {mutation.error.message || 'An error occurred during registration'}
                             </div>
                         )}
 
-                        {/* Name Input */}
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            {...register('name', {
-                                required: 'Name is required',
-                            })}
-                            className="w-full mb-4 px-4 py-2 border rounded"
+                        <FormInput label="User Name" name="username" register={register} errors={errors} placeholder="Enter your user name" />
+                        <FormInput label="E-mail" name="email" register={register} errors={errors} placeholder="Enter your email" />
+                        <FormInput label="Password" name="password" register={register} errors={errors} placeholder="Enter your password" />
+                        <FormInput
+                            label="Confirm Password"
+                            name="confirmpass"
+                            register={register}
+                            errors={errors}
+                            placeholder="confirm your password"
                         />
-                        {errors.name && <p className="text-red-600 text-sm">{errors.name.message}</p>}
 
-                        {/* Email Input */}
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            {...register('email', {
-                                required: 'Email is required',
-                                pattern: {
-                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                    message: 'Invalid email address',
-                                },
-                            })}
-                            className="w-full mb-4 px-4 py-2 border rounded"
-                        />
-                        {errors.email && <p className="text-red-600 text-sm">{errors.email.message}</p>}
-
-                        {/* Password Input */}
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            {...register('password', {
-                                required: 'Password is required',
-                                minLength: {
-                                    value: 6,
-                                    message: 'Password must be at least 6 characters',
-                                },
-                            })}
-                            className="w-full mb-4 px-4 py-2 border rounded"
-                        />
-                        {errors.password && <p className="text-red-600 text-sm">{errors.password.message}</p>}
-
-                        {/* Confirm Password Input */}
-                        <input
-                            type="password"
-                            placeholder="Confirm Password"
-                            {...register('confirmPassword', {
-                                required: 'Confirm Password is required',
-                                validate: (value) => value === watch('password') || 'Passwords do not match',
-                            })}
-                            className="w-full mb-4 px-4 py-2 border rounded"
-                        />
-                        {errors.confirmPassword && <p className="text-red-600 text-sm">{errors.confirmPassword.message}</p>}
+                        {errors.confirmpass && <p className="text-red-600 text-sm">{errors.confirmpass.message}</p>}
 
                         <button type="submit" className="w-full bg-blue-500 text-neutral-100 py-2 rounded hover:bg-blue-600 transition">
                             Register

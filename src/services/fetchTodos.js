@@ -18,9 +18,7 @@ const fetchTodos = {
                 } else if (response.status === 500) {
                     throw new Error('Server error (500)')
                 } else {
-                    throw new Error(
-                        `HTTP error: ${response.status} ${response.statusText}`
-                    )
+                    throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
                 }
             }
 
@@ -46,9 +44,7 @@ const fetchTodos = {
                 } else if (response.status === 500) {
                     throw new Error('Server error (500)')
                 } else {
-                    throw new Error(
-                        `HTTP error: ${response.status} ${response.statusText}`
-                    )
+                    throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
                 }
             }
 
@@ -56,6 +52,40 @@ const fetchTodos = {
             return data
         } catch (error) {
             throw new Error('Something went wrong ' + error.message)
+        }
+    },
+    postTodo: async (data) => {
+        console.log('POSTINNG TODO ' + JSON.stringify(data.text))
+        try {
+            const buildedURL = urlBuilder({
+                baseURL: baseUrl,
+                endpoint: '/todo',
+            })
+
+            console.log('POSTING DATA NOW')
+            let response = await fetch(buildedURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+                credentials: 'include',
+            })
+
+            if (!response.ok) {
+                if (response.status === 400) {
+                    throw new Error('Invalid data (400)')
+                } else if (response.status === 500) {
+                    throw new Error('Server error (500)')
+                } else {
+                    throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
+                }
+            }
+
+            let createdData = await response.json()
+            return createdData
+        } catch (error) {
+            throw new Error('Could not create Task ' + error.message)
         }
     },
     /*    putTodo: async ({ id }) => {},

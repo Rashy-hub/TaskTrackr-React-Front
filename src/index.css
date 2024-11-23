@@ -5,10 +5,13 @@
 .body-bg {
     @apply bg-neutral-900 font-sans text-neutral-100 w-screen h-screen;
 }
-
+/* Styles pour le formulaire */
+.form-style {
+    @apply bg-transparent p-6 rounded shadow-lg w-full max-w-md backdrop-blur-md;
+}
 /* Styles pour le mode clair */
 div[data-theme='light'] {
-    @apply bg-neutral-100 text-neutral-900;
+    @apply bg-neutral-400 text-neutral-900;
 }
 
 /* Styles pour le mode sombre */

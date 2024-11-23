@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom'
 function TodoItem({ todo }) {
     return (
         <li className="p-1">
-            <Link to={`/todos/${todo.id}`}>{todo.todo}</Link>
+            <Link to={`/todos/${todo._id}`}>{todo.text}</Link>
         </li>
     )
 }
 
 TodoItem.propTypes = {
     todo: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        todo: PropTypes.string.isRequired,
+        _id: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
     }).isRequired,
 }
 

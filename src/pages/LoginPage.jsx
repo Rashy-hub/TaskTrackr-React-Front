@@ -4,10 +4,11 @@ import Main from '../layouts/Main'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { authLoginSchema } from '../validators/authValidator'
-import FormInput from '../components/TodoInput'
+
 import { useAuth } from '../context/AuthContext'
 import { useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
+import FormInput from '../components/FormTextInput'
 
 const LoginPage = () => {
     const navigate = useNavigate()
@@ -52,17 +53,11 @@ const LoginPage = () => {
                 <Header title="TaskTrackr | Login" />
                 <Main>
                     <FormProvider {...methods}>
-                        <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 rounded shadow-md w-full max-w-md">
-                            <h2 className="text-2xl font-bold mb-4  text-neutral-900">Login</h2>
+                        <form onSubmit={handleSubmit(onSubmit)} className="form-style">
+                            <h2 className="text-2xl font-bold mb-4 ">Login</h2>
 
-                            <FormInput label="E-mail" name="email" register={methods.register} errors={errors} placeholder="Enter your email" />
-                            <FormInput
-                                label="Password"
-                                name="password"
-                                register={methods.register}
-                                errors={errors}
-                                placeholder="Enter your password"
-                            />
+                            <FormInput label="E-mail" name="email" placeholder="Enter your email" />
+                            <FormInput label="Password" name="password" placeholder="Enter your password" />
 
                             <button type="submit" className="w-full bg-blue-500 text-neutral-100 py-2 rounded hover:bg-blue-600 transition">
                                 Login

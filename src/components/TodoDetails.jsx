@@ -7,8 +7,9 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { todoSchema } from '../validators/todosValidator'
-import FormInput from './TodoInput'
+
 import ToggleInput from './ui/ToggleInput'
+import FormInput from './FormTextInput'
 
 const TodoDetails = ({ id }) => {
     const navigate = useNavigate()

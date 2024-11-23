@@ -12,12 +12,13 @@ function TodoList() {
     if (isLoading) return <Loader />
     if (error) return <div className="flex justify-center items-center text-4xl w-fit">An error occurred: {error.message}</div>
 
-    if (!data?.todos || data.todos.length === 0) return <div className="flex justify-center items-center text-4xl w-fit">No todos found</div>
+    if (!data.data?.todos || data.data.todos.length === 0)
+        return <div className="flex justify-center items-center text-4xl w-fit">No todos found</div>
 
     return (
         <ul className="h-[800px] w-[600px] font-extrabold mt-4 text-amber-200 overflow-auto">
-            {data.todos.map((todo) => (
-                <TodoItem key={todo.id} todo={todo} />
+            {data.data.todos.map((todo) => (
+                <TodoItem key={todo._id} todo={todo} />
             ))}
         </ul>
     )
