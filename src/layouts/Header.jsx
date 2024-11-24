@@ -3,8 +3,7 @@ import SignButton from '../components/ui/SignButton'
 import { useAuth } from '../context/AuthContext'
 import Button from '../components/ui/Button'
 import { useTheme } from '../context/ThemeContext'
-import { FaMoon, FaSun } from 'react-icons/fa' // Font Awesome Moon icon
-
+import { FaMoon, FaSun } from 'react-icons/fa'
 const Header = ({ title }) => {
     const { isAuthenticated, islogin } = useAuth()
     const { darkMode, toggleTheme } = useTheme()
@@ -15,7 +14,6 @@ const Header = ({ title }) => {
 
     return (
         <>
-            {/* <h1 className={`text-4xl font-bold body-bg`} data-theme={darkMode ? 'dark' : 'light'}> {title} /h1> */}
             <header
                 className="w-screen flex justify-between h-20 bg-transparent text-neutral-100 border-b-[1px] border-neutral-100 p-4 text-center mx-auto sticky top-0"
                 data-theme={darkMode ? 'dark' : 'light'}
@@ -38,7 +36,7 @@ const Header = ({ title }) => {
                     )}
                 </div>
             </header>
-            {/* Progress Bar Animation */}
+
             {islogin && (
                 <div className="w-screen h-[4px] bg-neutral-700">
                     <div className="progress-bar h-full bg-blue-500 animate-progress-bar"></div>

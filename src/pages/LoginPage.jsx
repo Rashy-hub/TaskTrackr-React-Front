@@ -8,7 +8,7 @@ import { authLoginSchema } from '../validators/authValidator'
 import { useAuth } from '../context/AuthContext'
 import { useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
-import FormInput from '../components/FormTextInput'
+import FormInput from '../components/ui/FormInput'
 
 const LoginPage = () => {
     const navigate = useNavigate()
@@ -19,7 +19,7 @@ const LoginPage = () => {
 
     const {
         handleSubmit,
-        formState: { errors },
+
         setError,
     } = methods
 
@@ -29,11 +29,9 @@ const LoginPage = () => {
 
     const onSubmit = async (formData) => {
         try {
-            await loginAsync(formData) // Attends la fin de la mutation
-            navigate('/todos') // Navigue uniquement après le succès
+            await loginAsync(formData)
+            navigate('/todos')
         } catch (error) {
-            // Exemple d'erreur venant du serveur : error.response.data.error
-
             let parsedError = JSON.parse(error.message)
             setError('email', {
                 type: 'server',
@@ -56,10 +54,10 @@ const LoginPage = () => {
                         <form onSubmit={handleSubmit(onSubmit)} className="form-style">
                             <h2 className="text-2xl font-bold mb-4 ">Login</h2>
 
-                            <FormInput label="E-mail" name="email" placeholder="Enter your email" />
-                            <FormInput label="Password" name="password" placeholder="Enter your password" />
+                            <FormInput label="E-mail" name="email" placeholder="Enter your email" type="email" />
+                            <FormInput label="Password" name="password" placeholder="Enter your password" type="password" />
 
-                            <button type="submit" className="w-full bg-blue-500 text-neutral-100 py-2 rounded hover:bg-blue-600 transition">
+                            <button type="submit" className="w-full bg-blue-500 text-neutral-100 py-2 rounded hover:bg-blue-600 transition mt-2">
                                 Login
                             </button>
                         </form>

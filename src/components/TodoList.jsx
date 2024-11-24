@@ -16,7 +16,7 @@ function TodoList() {
         return <div className="flex justify-center items-center text-4xl w-fit">No todos found</div>
 
     return (
-        <ul className="h-[800px] w-[600px] font-extrabold mt-4 text-amber-200 overflow-auto">
+        <ul className="h-fit w-[600px] font-extrabold mt-4 text-amber-200 overflow-auto font-special text-2xl border-2 border-amber-500 ">
             {data.data.todos.map((todo) => (
                 <TodoItem key={todo._id} todo={todo} />
             ))}

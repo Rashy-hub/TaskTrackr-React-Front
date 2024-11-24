@@ -6,13 +6,12 @@ import Loader from './ux/Loader'
 const ProtectedRoute = () => {
     const { isAuthenticated, isLoading } = useAuth()
 
-    // Si l'état de l'authentification est encore en cours de vérification, afficher un écran de chargement
     if (isLoading) {
         return (
             <div className="w-20 h-screen container border-2 border-x-red-400">
                 <Loader />
             </div>
-        ) // Vous pouvez personnaliser ceci avec un spinner, une animation, etc.
+        )
     }
 
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />

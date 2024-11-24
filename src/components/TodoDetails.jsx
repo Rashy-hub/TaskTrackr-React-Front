@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { todoSchema } from '../validators/todosValidator'
 
 import ToggleInput from './ui/ToggleInput'
-import FormInput from './FormTextInput'
+import FormInput from './ui/FormInput'
 
 const TodoDetails = ({ id }) => {
     const navigate = useNavigate()

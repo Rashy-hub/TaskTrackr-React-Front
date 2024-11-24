@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function TodoItem({ todo }) {
     return (
-        <li className="p-1">
+        <li className="p-1 text-[#278428]">
             <Link to={`/todos/${todo._id}`}>{todo.text}</Link>
         </li>
     )
@@ -11,7 +11,7 @@ function TodoItem({ todo }) {
 
 TodoItem.propTypes = {
     todo: PropTypes.shape({
-        _id: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,
     }).isRequired,
 }

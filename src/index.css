@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .body-bg {
-    @apply bg-neutral-900 font-sans text-neutral-100 w-screen h-screen;
+    @apply bg-neutral-900 font-sans text-neutral-100 w-full min-h-[100vh] overflow-x-hidden;
 }
 /* Styles pour le formulaire */
 .form-style {
@@ -11,7 +13,7 @@
 }
 /* Styles pour le mode clair */
 div[data-theme='light'] {
-    @apply bg-neutral-400 text-neutral-900;
+    @apply bg-neutral-200 text-neutral-900;
 }
 
 /* Styles pour le mode sombre */
@@ -39,4 +41,10 @@ header[data-theme='light'] {
 /* Applique l'animation à la barre de progression */
 .animate-progress-bar {
     animation: progressBar 3s ease-in-out forwards; /* 3s pour la durée de l'animation */
+}
+
+.neon-text {
+    text-shadow: 0 0 5px #ffffff, /* White glow */ 0 0 10px #ffffff, 0 0 20px #ff8c00, /* Orange glow */ 0 0 30px #ff8c00, 0 0 40px #ff8c00,
+        0 0 50px #ff8c00;
+    color: #ff8c00; /* Base text color */
 }

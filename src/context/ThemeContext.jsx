@@ -6,12 +6,12 @@ export const ThemeContext = createContext()
 export const useTheme = () => useContext(ThemeContext)
 
 export const ThemeProvider = ({ children }) => {
-    const [darkMode, setDarkMode] = useState(true) // Initialiser en dark mode par défaut
+    const [darkMode, setDarkMode] = useState(true)
 
     useEffect(() => {
         const theme = darkMode ? 'dark' : 'light'
 
-        document.documentElement.setAttribute('data-theme', theme) // Appliquer le thème sur <html>
+        document.documentElement.setAttribute('data-theme', theme)
     }, [darkMode])
 
     const toggleTheme = () => {

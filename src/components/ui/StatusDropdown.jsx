@@ -2,16 +2,16 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 
 const StatusDropdown = ({ onChange, register, name, errors }) => {
-    const [selectedStatus, setSelectedStatus] = useState('IN PROGRESS') // Valeur par défaut
+    const [selectedStatus, setSelectedStatus] = useState('IN PROGRESS')
 
-    const statuses = ['DONE', 'IN PROGRESS', 'STANDBY', 'REPORTED'] // Options disponibles
+    const statuses = ['DONE', 'IN PROGRESS', 'STANDBY', 'REPORTED']
 
     const handleChange = (e) => {
         const newStatus = e.target.value
         setSelectedStatus(newStatus)
         console.log('Status changed in the component')
         if (onChange) {
-            onChange(newStatus) // Appeler le callback si fourni
+            onChange(newStatus)
         }
     }
 

@@ -13,11 +13,9 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [authUser, setAuthUser] = useState(null)
-    const [isAuthChecked, setIsAuthChecked] = useState(false) // Nouvelle variable d'état
-    // Invalide toutes les requêtes liées à l'utilisateur ou au JWT
+    const [isAuthChecked, setIsAuthChecked] = useState(false)
     const queryClient = useQueryClient()
 
-    // Mutation de login
     const {
         mutate: login,
         isPending: isLogin,
@@ -36,7 +34,6 @@ export const AuthProvider = ({ children }) => {
         },
     })
 
-    // Mutation de logout
     const {
         mutate: logout,
         isPending: isLogout,
@@ -49,19 +46,14 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(false)
             setAuthUser(null)
 
-            queryClient.invalidateQueries(['todos']) // Par exemple, si tu caches les infos de l'utilisateur
+            queryClient.invalidateQueries(['todos'])
         },
         onError: (error) => {
             console.error('Logout failed:', error.message)
         },
     })
 
-    // Query de todoList pour provoquer la validation du token
-    const {
-        data: todos,
-        error,
-        isLoading,
-    } = useQuery({
+    const { data: todos, error } = useQuery({
         queryFn: () => fetchTodos.getTodos(),
         queryKey: ['todos'],
         enabled: isAuthenticated,
@@ -74,12 +66,12 @@ export const AuthProvider = ({ children }) => {
         try {
             const result = await fetchTodos.getTodos()
             setIsAuthenticated(true)
-            setIsAuthChecked(true) // Marque que l'authentification a été vérifiée
+            setIsAuthChecked(true)
             return result
         } catch (err) {
             console.error('Error fetching todos:', err.message)
             setIsAuthenticated(false)
-            setIsAuthChecked(true) // Marque que l'authentification a été vérifiée
+            setIsAuthChecked(true)
             throw err
         }
     }
@@ -88,7 +80,7 @@ export const AuthProvider = ({ children }) => {
         const fetchData = async () => {
             try {
                 console.log('IT SHOULD GET HERE IN EVERY REFRESH')
-                await getApp() // Appelle getApp pour récupérer les données nécessaires
+                await getApp()
             } catch (error) {
                 console.error('Error in fetchData:', error.message)
                 setIsAuthenticated(false)
@@ -98,7 +90,6 @@ export const AuthProvider = ({ children }) => {
         fetchData()
     }, [])
 
-    // Ajout d'une fonction "async" pour attendre explicitement la mutation
     const loginAsync = (formData) => {
         return new Promise((resolve, reject) => {
             login(formData, {
@@ -123,7 +114,7 @@ export const AuthProvider = ({ children }) => {
                 getApp,
                 todos,
                 error,
-                isLoading: !isAuthChecked, // Utilise isAuthChecked pour déterminer si l'auth a été vérifié
+                isLoading: !isAuthChecked,
             }}
         >
             {children}

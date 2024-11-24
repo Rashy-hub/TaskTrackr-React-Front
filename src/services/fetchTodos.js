@@ -88,9 +88,10 @@ const fetchTodos = {
             throw new Error('Could not create Task ' + error.message)
         }
     },
-    /*    putTodo: async ({ id }) => {},
-    postTodo: async ({ data }) => {},
-    deleteTodo: async ({ id }) => {}, */
+    /*
+    putTodo: async ({ id }) => {},   
+    deleteTodo: async ({ id }) => {}, 
+    */
 }
 
 export default fetchTodos

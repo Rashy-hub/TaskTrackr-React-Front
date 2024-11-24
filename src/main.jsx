@@ -22,6 +22,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <ThemeProvider>
                 <BrowserRouter>
                     <Routes>
+                        {/* Public Routes */}
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/home" element={<HomePage />} />
                         {/* Protected Routes */}
                         <Route element={<ProtectedRoute />}>
                             <Route path="/" element={<App />} />
@@ -29,11 +34,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                             <Route path="/todos/:todoId" element={<TodoDetailPage />} />
                             <Route path="/todos/add" element={<AddTodoPage />} />
                         </Route>
-
-                        {/* Public Routes */}
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/home" element={<HomePage />} />
 
                         {/* Error Routes */}
                         <Route path="/error/:message" element={<ErrorPage />} />
