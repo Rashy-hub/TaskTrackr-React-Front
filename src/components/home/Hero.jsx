@@ -1,7 +1,9 @@
 import MovieContainer from './MovieContainer'
 import CTA from './CTA'
+import ScrollingBanner from './ScrollingBanner'
 
 const Hero = () => {
+    const bannerKeyWords = ['FOCUS', 'ACHIEVE', 'REPEAT']
     return (
         <section className="relative w-full h-[400px]">
             <MovieContainer />
@@ -15,9 +17,10 @@ const Hero = () => {
             <div className="absolute top-4 left-[50%] translate-x-[-50%] z-20 text-center mt-4">
                 <h1 className="text-white md:text-4xl font-bold font-special text-center neon-text sm:text-2xl ">
                     {' '}
-                    FOCUS | ACHIEVE | REPEAT : Your Goals, Simplified
+                    TaskTrackr : Your Goals, Simplified
                 </h1>
             </div>
+            <ScrollingBanner keywords={bannerKeyWords} />
         </section>
     )
 }

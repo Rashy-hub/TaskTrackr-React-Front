@@ -3,6 +3,7 @@ import HeaderHome from '../components/home/HeaderHome'
 import Hero from '../components/home/Hero'
 import { useTheme } from '../context/ThemeContext'
 import HomeMain from '../layouts/HomeMain'
+import Features from '../components/home/Features'
 
 const HomePage = () => {
     const { darkMode } = useTheme()
@@ -35,6 +36,7 @@ const HomePage = () => {
                     />
                 </div>
                 <Hero />
+                <Features />
             </HomeMain>
         </div>
     )

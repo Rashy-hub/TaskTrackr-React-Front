@@ -1,0 +1,29 @@
+[
+    {
+        "title": "Task Management",
+        "description": [
+            "Create, manage, and track tasks easily.",
+            "Organize tasks by categories, due dates, and priorities.",
+            "Stay on top of your workload with an intuitive interface."
+        ],
+        "image": "/images/todolist.png"
+    },
+    {
+        "title": "Pomodoro Timer",
+        "description": [
+            "Boost productivity using the Pomodoro Technique.",
+            "Work in focused intervals and take regular breaks.",
+            "Maintain peak performance and avoid burnout."
+        ],
+        "image": "/images/pomodoro.png"
+    },
+    {
+        "title": "AI-Powered Insights",
+        "description": [
+            "Receive personalized task recommendations based on your habits.",
+            "Get productivity insights to help optimize your time.",
+            "Prioritize tasks more effectively with AI assistance."
+        ],
+        "image": "/images/aiassistant.png"
+    }
+]

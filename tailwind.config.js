@@ -8,12 +8,13 @@ export default {
             },
             keyframes: {
                 scroll: {
-                    '0%': { transform: 'translateX(100%)' },
-                    '100%': { transform: 'translateX(-100%)' },
+                    '0%': { transform: 'translateX(12.5%)' }, // Départ
+                    '50%': { transform: 'translateX(-12.5%)' }, // Au centre à droite
+                    '100%': { transform: 'translateX(12.5%)' }, // Retour au départ
                 },
             },
             animation: {
-                scroll: 'scroll 10s linear infinite',
+                scroll: 'scroll 20s ease-in-out infinite', // Animation fluide et infinie
             },
         },
     },
