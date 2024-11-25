@@ -18,14 +18,14 @@ const SignButton = ({ name, variant }) => {
 
     const handleClick = async () => {
         if (variant === 'login') {
-            navigate('/login')
+            navigate('/app/login')
         } else if (variant === 'register') {
-            navigate('/register')
+            navigate('/app/register')
         } else if (variant === 'logout') {
             try {
                 console.log('LOGGING OUT')
                 await logout()
-                navigate('/login')
+                navigate('/app/login')
             } catch (error) {
                 console.error('Logout failed:', error)
             }

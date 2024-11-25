@@ -14,7 +14,7 @@ const ProtectedRoute = () => {
         )
     }
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />
+    return isAuthenticated ? <Outlet /> : <Navigate to="/app/login" replace />
 }
 
 ProtectedRoute.propTypes = {

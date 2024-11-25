@@ -18,7 +18,7 @@ const RegisterPage = () => {
     const mutation = useMutation({
         mutationFn: fetchAuth.register,
         onSuccess: () => {
-            navigate('/login')
+            navigate('/app/login')
         },
     })
 
@@ -63,7 +63,7 @@ const RegisterPage = () => {
                             </button>
                             <p className="mt-4 text-sm text-gray-600">
                                 Already have an account?{' '}
-                                <a href="/login" className="text-blue-500 hover:underline">
+                                <a href="/app/login" className="text-blue-500 hover:underline">
                                     Log in
                                 </a>
                             </p>

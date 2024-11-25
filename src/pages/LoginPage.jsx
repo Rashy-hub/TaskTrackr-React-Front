@@ -24,13 +24,13 @@ const LoginPage = () => {
     } = methods
 
     useEffect(() => {
-        if (isAuthenticated) navigate('/todos')
+        if (isAuthenticated) navigate('/app/todos')
     }, [isAuthenticated, navigate])
 
     const onSubmit = async (formData) => {
         try {
             await loginAsync(formData)
-            navigate('/todos')
+            navigate('/app/todos')
         } catch (error) {
             let parsedError = JSON.parse(error.message)
             setError('email', {
@@ -41,14 +41,14 @@ const LoginPage = () => {
     }
 
     if (loginerror) {
-        navigate(`/error/${loginerror.message}`)
+        navigate(`/app/error/${loginerror.message}`)
     }
 
     return (
         <>
             <div className={`body-bg`} data-theme={darkMode ? 'dark' : 'light'}>
                 {' '}
-                <Header title="TaskTrackr | Login" />
+                <Header title="Login" />
                 <Main>
                     <FormProvider {...methods}>
                         <form onSubmit={handleSubmit(onSubmit)} className="form-style">
@@ -60,6 +60,12 @@ const LoginPage = () => {
                             <button type="submit" className="w-full bg-blue-500 text-neutral-100 py-2 rounded hover:bg-blue-600 transition mt-2">
                                 Login
                             </button>
+                            <p className="mt-4 text-sm text-gray-600">
+                                Not registred yet ?{' '}
+                                <a href="/app/login" className="text-blue-500 hover:underline">
+                                    Sign up
+                                </a>
+                            </p>
                         </form>
                     </FormProvider>
                 </Main>

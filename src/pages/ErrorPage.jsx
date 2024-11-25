@@ -15,7 +15,7 @@ const ErrorPage = () => {
                 <Main>
                     <h2 className="text-4xl text-amber-300 font-extrabold m-4">SOMETHING WENT WRONG</h2>
                     <p>{message ? `${message}` : ' path does not exist'}</p>
-                    <Button onClick={() => navigate('/')} icon={<FaArrowLeft />}>
+                    <Button onClick={() => navigate('/app')} icon={<FaArrowLeft />}>
                         Go back
                     </Button>
                 </Main>

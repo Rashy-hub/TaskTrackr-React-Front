@@ -15,7 +15,7 @@ const NavBar = () => {
                 <span className="text-gray-500">|</span>
 
                 <button
-                    onClick={() => navigate('/login')}
+                    onClick={() => navigate('/app/login')}
                     className="hover:text-gray-400 bg-transparent border-none cursor-pointer"
                     title="Sign In"
                     aria-label="Sign In"
@@ -23,7 +23,7 @@ const NavBar = () => {
                     Sign In
                 </button>
                 <button
-                    onClick={() => navigate('/signup')}
+                    onClick={() => navigate('/app/signup')}
                     className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500"
                     title="Sign Up"
                     aria-label="Sign Up"

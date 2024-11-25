@@ -24,19 +24,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Routes>
                         {/* Public Routes */}
                         <Route path="/" element={<HomePage />} />
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/home" element={<HomePage />} />
+
+                        <Route path="/app/login" element={<LoginPage />} />
+                        <Route path="/app/register" element={<RegisterPage />} />
+                        <Route path="/app/home" element={<HomePage />} />
                         {/* Protected Routes */}
                         <Route element={<ProtectedRoute />}>
-                            <Route path="/" element={<App />} />
-                            <Route path="/todos" element={<App />} />
-                            <Route path="/todos/:todoId" element={<TodoDetailPage />} />
-                            <Route path="/todos/add" element={<AddTodoPage />} />
+                            <Route path="/app" element={<App />} />
+                            <Route path="/app/todos" element={<App />} />
+                            <Route path="/app/todos/:todoId" element={<TodoDetailPage />} />
+                            <Route path="/app/todos/add" element={<AddTodoPage />} />
                         </Route>
 
                         {/* Error Routes */}
-                        <Route path="/error/:message" element={<ErrorPage />} />
+                        <Route path="/app/error/:message" element={<ErrorPage />} />
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
                 </BrowserRouter>

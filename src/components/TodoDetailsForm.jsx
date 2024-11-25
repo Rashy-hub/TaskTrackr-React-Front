@@ -40,7 +40,7 @@ const TodoDetails = ({ id }) => {
     }, [details, setValue])
     if (isLoading) return <Loader />
     if (error) {
-        navigate(`/error/${error.message}`)
+        navigate(`/app/error/${error.message}`)
     }
     const onSubmit = (formData) => {
         console.log('Form Updated ' + formData)
