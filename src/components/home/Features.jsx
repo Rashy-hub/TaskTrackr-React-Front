@@ -14,14 +14,9 @@ const Features = () => {
         <section className="w-full mt-4">
             {features.length > 0 ? (
                 features.map((feature, index) => (
-                    <div
-                        key={index}
-                        className={`grid grid-cols-2 w-[80%] mt-12 mx-auto place-content-center place-items-center ${
-                            index % 2 === 1 ? 'flex-row-reverse' : ''
-                        }`}
-                    >
+                    <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4 w-[80%] mt-12 mx-auto place-items-center">
                         {/* Text Section */}
-                        <div className="flex flex-col items-center justify-start">
+                        <div className={`flex flex-col items-start ${index % 2 === 1 ? 'order-2' : 'order-1'}`}>
                             <h2 className="text-4xl font-semibold font-special mb-6">{feature.title}</h2>
                             <ul className="list-disc pl-6 mb-4">
                                 {feature.description.map((point, idx) => (
@@ -33,7 +28,7 @@ const Features = () => {
                         </div>
 
                         {/* Image Section */}
-                        <div className="w-[300px] h-[300px] place-self-center">
+                        <div className={`w-[300px] h-[300px] place-self-center ${index % 2 === 1 ? 'order-1' : 'order-2'}`}>
                             <img src={feature.image} alt={feature.title} className="w-full h-auto" />
                         </div>
                     </div>
