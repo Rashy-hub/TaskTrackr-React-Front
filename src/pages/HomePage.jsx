@@ -6,6 +6,7 @@ import HomeMain from '../layouts/HomeMain'
 import Features from '../components/home/Features'
 
 import FooterHome from '../components/home/FooterHome'
+import Pricing from '../components/home/Pricing'
 
 const HomePage = () => {
     const { darkMode } = useTheme()
@@ -39,6 +40,7 @@ const HomePage = () => {
                 </div>
                 <Hero />
                 <Features />
+                <Pricing />
             </HomeMain>
             <FooterHome />
         </div>

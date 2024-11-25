@@ -11,7 +11,7 @@ const Features = () => {
     }, [])
 
     return (
-        <section className="w-full  p-24">
+        <section id="features" className="w-full  p-24">
             {features.length > 0 ? (
                 features.map((feature, index) => (
                     <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4 w-[80%] mt-12 mx-auto place-items-center">

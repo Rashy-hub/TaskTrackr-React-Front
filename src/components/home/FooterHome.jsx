@@ -12,17 +12,17 @@ const FooterHome = () => {
                 <div className="flex justify-center mb-8">
                     <ul className="flex space-x-8">
                         <li>
-                            <a href="/about" className="text-lg hover:text-yellow-400">
+                            <a href="/" className="text-lg hover:text-yellow-400">
                                 About
                             </a>
                         </li>
                         <li>
-                            <a href="/features" className="text-lg hover:text-yellow-400">
+                            <a href="#features" className="text-lg hover:text-yellow-400">
                                 Features
                             </a>
                         </li>
                         <li>
-                            <a href="/pricing" className="text-lg hover:text-yellow-400">
+                            <a href="#pricing" className="text-lg hover:text-yellow-400">
                                 Pricing
                             </a>
                         </li>
@@ -40,7 +40,7 @@ const FooterHome = () => {
                     <p className="text-md mb-4">Subscribe to our newsletter to get the latest updates and tips.</p>
                     <form className="flex justify-center">
                         <input type="email" placeholder="Your email address" className="px-4 py-2 rounded-l-md text-black" />
-                        <button className="bg-yellow-500 text-white px-6 py-2 rounded-r-md hover:bg-yellow-400">Subscribe</button>
+                        <button className="bg-yellow-500 text-neutral-800 font-bold px-6 py-2 rounded-r-md hover:bg-yellow-400">Subscribe</button>
                     </form>
                 </div>
 
