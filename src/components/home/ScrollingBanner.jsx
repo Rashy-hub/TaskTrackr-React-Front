@@ -7,7 +7,7 @@ const ScrollingBanner = ({ keywords }) => {
         <div className="relative overflow-hidden w-full bg-gray-800 text-white h-12">
             {/* Conteneur animé */}
             <div className="whitespace-nowrap flex justify-center items-center h-full animate-scroll">
-                <span className="pr-8 font-special">{content}</span>
+                <span className="pr-8 font-special text-4xl">{content}</span>
             </div>
         </div>
     )
