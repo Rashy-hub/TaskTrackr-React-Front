@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
     const [authUser, setAuthUser] = useState(null)
     const [isAuthChecked, setIsAuthChecked] = useState(false)
     const queryClient = useQueryClient()
+    const [serverIsUp, setServerIsUp] = useState(false)
 
     const {
         mutate: login,
@@ -83,6 +84,10 @@ export const AuthProvider = ({ children }) => {
                 await getApp()
             } catch (error) {
                 console.error('Error in fetchData:', error.message)
+                let serverResponse = error.message
+                if (serverResponse.includes('401')) setServerIsUp(true)
+                else setServerIsUp(false)
+
                 setIsAuthenticated(false)
             }
         }
@@ -102,6 +107,7 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider
             value={{
+                serverIsUp,
                 isAuthenticated,
                 authUser,
                 login,

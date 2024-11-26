@@ -15,7 +15,7 @@ const LoginPage = () => {
     const { darkMode } = useTheme()
 
     const methods = useForm({ resolver: yupResolver(authLoginSchema) })
-    const { loginAsync, loginerror, isAuthenticated } = useAuth()
+    const { loginAsync, loginerror, isAuthenticated, serverIsUp } = useAuth()
 
     const {
         handleSubmit,
@@ -50,6 +50,11 @@ const LoginPage = () => {
                 {' '}
                 <Header title="Login" />
                 <Main>
+                    <div className="flex items-center gap-2 border-[1px] p-2 rounded-lg border-yellow-500">
+                        <p className="font-special ">Server Status</p>
+                        <div className={`rounded-full w-4 h-4 ${serverIsUp ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                    </div>
+
                     <FormProvider {...methods}>
                         <form onSubmit={handleSubmit(onSubmit)} className="form-style">
                             <h2 className="text-2xl font-bold mb-4 ">Login</h2>
@@ -57,7 +62,11 @@ const LoginPage = () => {
                             <FormInput label="E-mail" name="email" placeholder="Enter your email" type="email" />
                             <FormInput label="Password" name="password" placeholder="Enter your password" type="password" />
 
-                            <button type="submit" className="w-full bg-blue-500 text-neutral-100 py-2 rounded hover:bg-blue-600 transition mt-2">
+                            <button
+                                type="submit"
+                                className="w-full bg-blue-500 text-neutral-100 py-2 rounded hover:bg-blue-600 transition mt-2 disabled:bg-slate-500 "
+                                disabled={!serverIsUp}
+                            >
                                 Login
                             </button>
                             <p className="mt-4 text-sm text-gray-600">
