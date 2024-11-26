@@ -11,10 +11,10 @@ const Pricing = () => {
             </div>
             <h3>No ads . No trials . No commitments</h3>
             <PricingCard />
-            <h3>All our features are available to all our users</h3>
+            <h3>* All our features are available to all our users durging the beta phase</h3>
             <div className="flex items-end space-x-2">
                 <span className="text-2xl font-bold text-gray-100">$</span>
-                <span className="text-5xl font-extrabold text-gray-100">9.99</span>
+                <span className="text-5xl font-extrabold text-gray-100">4.99</span>
                 <span className="text-sm font-medium text-gray-500">/month</span>
             </div>
 
