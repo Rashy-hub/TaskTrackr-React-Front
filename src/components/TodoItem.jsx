@@ -34,7 +34,7 @@ function TodoItem({ todo, onDelete, onUpdate }) {
                     autoFocus
                 />
             ) : (
-                <Link to={`/todos/${todo._id}`} className="text-lg text-green-700 hover:underline">
+                <Link to={`todos/${todo._id}`} className="text-lg text-green-700 hover:underline">
                     {todo.text}
                 </Link>
             )}

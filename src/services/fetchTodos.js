@@ -29,14 +29,18 @@ const fetchTodos = {
         }
     },
 
-    getTodo: async ({ id }) => {
+    getTodo: async (id) => {
         try {
             const buildedURL = urlBuilder({
-                baseURL: `${baseUrl}/:id`,
-                params: { id },
+                baseURL: baseUrl,
+                endpoint: '/todo/:id',
+                params: { id: id },
             })
 
-            let response = await fetch(buildedURL)
+            let response = await fetch(buildedURL, {
+                method: 'GET',
+                credentials: 'include',
+            })
 
             if (!response.ok) {
                 if (response.status === 404) {

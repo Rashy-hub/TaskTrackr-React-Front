@@ -9,6 +9,7 @@ import { useTheme } from '../context/ThemeContext'
 
 function TodoDetailPage() {
     const { todoId } = useParams()
+    console.log('HERE ' + todoId)
 
     const navigate = useNavigate()
     const { darkMode } = useTheme()

@@ -13,16 +13,18 @@ import FormInput from './ui/FormInput'
 
 const TodoDetails = ({ id }) => {
     const navigate = useNavigate()
+
     const {
         data: details,
         error,
         isLoading,
     } = useQuery({
-        queryFn: () => fetchTodos.getTodo({ id }),
+        queryFn: () => fetchTodos.getTodo(id),
         queryKey: ['details', id],
     })
 
     const methods = useForm({ resolver: yupResolver(todoSchema) })
+
     const {
         setValue,
         handleSubmit,
@@ -33,11 +35,16 @@ const TodoDetails = ({ id }) => {
         if (details) {
             //this way we avoid changing this part of code if todo data schema changes
             //=> particular case value completed is based on a boolean => DONE or IN PROGRESS
-            Object.keys(details).forEach((key) => {
-                setValue(key.toString(), details[key])
-            })
+            //console.log(JSON.stringify(details.data.todo))
+            /*  Object.keys(details.data.todo).forEach((key) => {
+                setValue(key.toString(), details.data.todo[key]) // rewrite use effect so that we fill the form in a more manual way
+            }) */
+
+            setValue('text', details.data.todo['text'])
+            setValue('status', details.data.todo['status'])
         }
     }, [details, setValue])
+
     if (isLoading) return <Loader />
     if (error) {
         navigate(`/app/error/${error.message}`)
@@ -53,14 +60,8 @@ const TodoDetails = ({ id }) => {
                     onSubmit={handleSubmit(onSubmit)}
                     className="max-w-md mx-auto p-6 bg-transparent shadow-md rounded-lg border-neutral-100 border-[1px]"
                 >
-                    <FormInput label="Task Id" name="id" register={methods.register} errors={errors} placeholder="Enter Task ID" />
-                    <FormInput
-                        label="Task Description"
-                        name="todo"
-                        register={methods.register}
-                        errors={errors}
-                        placeholder="Enter Task Description"
-                    />
+                    <FormInput label="Status" name="status" placeholder="Enter status " type="text" />
+                    <FormInput label="Task Description" name="text" placeholder="Enter Task Description" />
 
                     <ToggleInput name="completed" />
 

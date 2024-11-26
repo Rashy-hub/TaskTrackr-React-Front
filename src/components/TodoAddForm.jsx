@@ -12,7 +12,7 @@ const TodoAddForm = () => {
     const mutation = useMutation({
         mutationFn: fetchTodos.postTodo,
         onSuccess: (data) => {
-            console.log(JSON.stringify(data))
+            console.log(`Mutation postTodo : on Succes ${data}`)
             queryClient.invalidateQueries(['todos'])
 
             reset()
@@ -20,12 +20,21 @@ const TodoAddForm = () => {
                 inputRef.current.focus()
             }
         },
+        onMutate: (data) => {
+            console.log(`Mutation postTodo : on Mutate ${data}`)
+        },
+        onError: (error) => {
+            console.log(`Mutation postTodo : on Error ${error}`)
+        },
     })
 
     const onSubmit = (formData) => {
         mutation.mutate({
             text: formData.text,
         })
+    }
+    const onErrors = (formData) => {
+        console.log('Soumission erreurs:', JSON.stringify(formData))
     }
 
     if (mutation.isLoading) return <Loader />
