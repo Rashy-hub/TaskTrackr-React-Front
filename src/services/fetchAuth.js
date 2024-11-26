@@ -5,7 +5,6 @@ const baseUrl = import.meta.env.VITE_BASE_URL
 const fetchAuth = {
     login: async (credentials) => {
         try {
-            console.log('Fetch Auth Credentials received ' + JSON.stringify(credentials))
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
                 endpoint: '/auth/login',
@@ -40,7 +39,6 @@ const fetchAuth = {
 
     register: async (userData) => {
         try {
-            console.log('TRYING TO REGISTER')
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
                 endpoint: '/auth/register',
@@ -103,7 +101,6 @@ const fetchAuth = {
 
     logout: async () => {
         try {
-            console.log('sending request to delete the cookie token')
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
                 endpoint: '/auth/logout',

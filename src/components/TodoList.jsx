@@ -21,7 +21,7 @@ function TodoList() {
             // Optimistic update
             await queryClient.cancelQueries(['todos'])
             const previousTodos = queryClient.getQueryData(['todos'])
-            console.log('ON MUTATE => PUT ')
+
             // optimistic cache
             queryClient.setQueryData(['todos'], (oldData) => {
                 return {
@@ -69,7 +69,6 @@ function TodoList() {
     })
 
     const updateHandler = (todo) => {
-        console.log(JSON.stringify(todo))
         updateMutation.mutate(todo)
     }
 

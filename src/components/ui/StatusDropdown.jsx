@@ -9,7 +9,7 @@ const StatusDropdown = ({ onChange, register, name, errors }) => {
     const handleChange = (e) => {
         const newStatus = e.target.value
         setSelectedStatus(newStatus)
-        console.log('Status changed in the component')
+
         if (onChange) {
             onChange(newStatus)
         }

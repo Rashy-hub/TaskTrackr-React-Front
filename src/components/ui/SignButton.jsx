@@ -23,7 +23,6 @@ const SignButton = ({ name, variant }) => {
             navigate('/app/register')
         } else if (variant === 'logout') {
             try {
-                console.log('LOGGING OUT')
                 await logout()
                 navigate('/app/login')
             } catch (error) {

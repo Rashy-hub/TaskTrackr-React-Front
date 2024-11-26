@@ -55,14 +55,12 @@ const fetchTodos = {
         }
     },
     postTodo: async (data) => {
-        console.log('POSTINNG TODO ' + JSON.stringify(data.text))
         try {
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
                 endpoint: '/todo',
             })
 
-            console.log('POSTING DATA NOW')
             let response = await fetch(buildedURL, {
                 method: 'POST',
                 headers: {
@@ -90,14 +88,11 @@ const fetchTodos = {
     },
     putTodo: async (data) => {
         try {
-            console.log('Params:', data._id)
-
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
                 endpoint: '/todo/:id', // Use :id in the endpoint
                 params: { id: data._id }, // Pass id to replace :id
             })
-            console.log('PutTODO : buildedURL = ' + buildedURL + ' ' + 'body is : ' + JSON.stringify({ text: data.text }))
 
             let response = await fetch(buildedURL, {
                 method: 'PUT',
@@ -129,7 +124,6 @@ const fetchTodos = {
 
     deleteTodo: async (id) => {
         try {
-            console.log(id)
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
                 endpoint: '/todo/:id',

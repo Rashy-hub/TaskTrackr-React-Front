@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }) => {
         onSuccess: async (data) => {
             if (data.data?.user) {
                 setAuthUser(data.data.user)
-                console.log('SETTING AUTHENTICATE TO TRUE')
                 setIsAuthenticated(true)
             }
         },
@@ -43,7 +42,6 @@ export const AuthProvider = ({ children }) => {
         mutationFn: fetchAuth.logout,
 
         onSuccess: () => {
-            console.log('we just logged out')
             setIsAuthenticated(false)
             setAuthUser(null)
 
@@ -80,7 +78,6 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log('IT SHOULD GET HERE IN EVERY REFRESH')
                 await getApp()
             } catch (error) {
                 console.error('Error in fetchData:', error.message)

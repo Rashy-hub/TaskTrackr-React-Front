@@ -12,30 +12,20 @@ const TodoAddForm = () => {
     const mutation = useMutation({
         mutationFn: fetchTodos.postTodo,
         onSuccess: (data) => {
-            queryClient.invalidateQueries(['todos'])
             console.log(JSON.stringify(data))
+            queryClient.invalidateQueries(['todos'])
 
             reset()
             if (inputRef.current) {
                 inputRef.current.focus()
             }
         },
-        onMutate: (data) => {
-            console.log('MUTATING WITH ' + JSON.stringify(data.text))
-        },
-        onError: (error) => {
-            console.log(error)
-        },
     })
 
     const onSubmit = (formData) => {
-        console.log('Soumission des données:', formData.text)
         mutation.mutate({
             text: formData.text,
         })
-    }
-    const onErrors = (formData) => {
-        console.log('Soumission erreurs:', JSON.stringify(formData))
     }
 
     if (mutation.isLoading) return <Loader />
