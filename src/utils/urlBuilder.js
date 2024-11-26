@@ -1,6 +1,7 @@
 const urlBuilder = ({ baseURL, endpoint, params, queries }) => {
+    console.log(JSON.stringify({ baseURL, endpoint, params, queries }))
     const fullURL = `${baseURL.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}`
-    console.log('HERE INSIDE ' + fullURL.toString())
+
     let url = new URL(fullURL)
 
     // let endUrl = resolve(url, endpoint)
