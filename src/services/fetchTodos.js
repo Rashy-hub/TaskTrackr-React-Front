@@ -127,11 +127,13 @@ const fetchTodos = {
         }
     },
 
-    deleteTodo: async ({ id }) => {
+    deleteTodo: async (id) => {
         try {
+            console.log(id)
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
-                endpoint: `/todo/${id}`,
+                endpoint: '/todo/:id',
+                params: { id: id },
             })
 
             let response = await fetch(buildedURL, {

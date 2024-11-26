@@ -1,5 +1,3 @@
-import React from 'react'
-
 const PricingCard = () => {
     //AI generated :) ; no time its a MVP
     return (
