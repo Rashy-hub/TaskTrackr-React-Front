@@ -16,7 +16,7 @@ const fetchAuth = {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(credentials),
-                credentials: 'include',
+                //credentials: 'include',
             })
 
             if (!response.ok) {
@@ -50,7 +50,7 @@ const fetchAuth = {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(userData),
-                credentials: 'include',
+                //credentials: 'include',
             })
 
             if (!response.ok) {

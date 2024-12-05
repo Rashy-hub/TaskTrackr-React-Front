@@ -9,10 +9,14 @@ const fetchTodos = {
                 baseURL: baseUrl,
                 endpoint: '/todo',
             })
-
+            const token = sessionStorage.getItem('authToken')
             let response = await fetch(buildedURL, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Ajout du token dans les headers
+                    'Content-Type': 'application/json', // Indiquer le type de contenu JSON
+                },
+                // credentials: 'include',
             })
 
             if (!response.ok) {
@@ -67,10 +71,11 @@ const fetchTodos = {
                 baseURL: baseUrl,
                 endpoint: '/todo',
             })
-
+            const token = sessionStorage.getItem('authToken')
             let response = await fetch(buildedURL, {
                 method: 'POST',
                 headers: {
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),

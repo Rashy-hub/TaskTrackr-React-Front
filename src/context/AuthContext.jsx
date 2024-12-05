@@ -25,6 +25,11 @@ export const AuthProvider = ({ children }) => {
         mutationFn: fetchAuth.login,
         onSuccess: async (data) => {
             if (data.data?.user) {
+                const token = data.token
+
+                if (token) {
+                    sessionStorage.setItem('authToken', token) // Stocke le token dans sessionStorage
+                }
                 setAuthUser(data.data.user)
                 setIsAuthenticated(true)
             }
@@ -42,6 +47,7 @@ export const AuthProvider = ({ children }) => {
         mutationFn: fetchAuth.logout,
 
         onSuccess: () => {
+            sessionStorage.removeItem('authToken')
             setIsAuthenticated(false)
             setAuthUser(null)
 
