@@ -43,10 +43,14 @@ const fetchTodos = {
                 endpoint: '/todo/:id',
                 params: { id: id },
             })
-
+            const token = sessionStorage.getItem('authToken')
             let response = await fetch(buildedURL, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Ajout du token dans les headers
+                    'Content-Type': 'application/json', // Indiquer le type de contenu JSON
+                },
+                //credentials: 'include',
             })
 
             if (!response.ok) {
@@ -105,14 +109,16 @@ const fetchTodos = {
                 endpoint: '/todo/:id', // Use :id in the endpoint
                 params: { id: data._id }, // Pass id to replace :id
             })
+            const token = sessionStorage.getItem('authToken')
 
             let response = await fetch(buildedURL, {
                 method: 'PUT',
                 headers: {
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ text: data.text }),
-                credentials: 'include',
+                //  credentials: 'include',
             })
 
             if (!response.ok) {
@@ -141,10 +147,15 @@ const fetchTodos = {
                 endpoint: '/todo/:id',
                 params: { id: id },
             })
+            const token = sessionStorage.getItem('authToken')
 
             let response = await fetch(buildedURL, {
                 method: 'DELETE',
-                credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                // credentials: 'include',
             })
 
             if (!response.ok) {
