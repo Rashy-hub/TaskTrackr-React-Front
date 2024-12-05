@@ -10,7 +10,10 @@ const fetchTodos = {
                 endpoint: '/todo',
             })
 
-            let response = await fetch(buildedURL, { credentials: 'include' })
+            let response = await fetch(buildedURL, {
+                method: 'GET',
+                credentials: 'include',
+            })
 
             if (!response.ok) {
                 if (response.status === 404) {
