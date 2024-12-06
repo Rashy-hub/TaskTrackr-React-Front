@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function TodoItem({ todo, onDelete, onUpdate }) {
+function TodoItem({ todo, onUpdate }) {
     const [isEditing, setIsEditing] = useState(false) // Toggle edit mode
     const [newText, setNewText] = useState(todo.text)
 
@@ -38,7 +38,7 @@ function TodoItem({ todo, onDelete, onUpdate }) {
                     {todo.text}
                 </Link>
             )}
-
+            {/* Createion Date */}
             {/* Action Buttons */}
             <div className="flex gap-2">
                 {isEditing ? (
@@ -60,9 +60,9 @@ function TodoItem({ todo, onDelete, onUpdate }) {
                         </button>
 
                         {/* Delete Button */}
-                        <button onClick={() => onDelete(todo._id)} className="p-1 transition hover:bg-red-100 rounded">
+                        {/*     <button onClick={() => onDelete(todo._id)} className="p-1 transition hover:bg-red-100 rounded">
                             <img src="/trash.svg" alt="Delete Todo" className="w-5 h-5" />
-                        </button>
+                        </button> */}
                     </>
                 )}
             </div>
@@ -75,7 +75,7 @@ TodoItem.propTypes = {
         _id: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,
     }).isRequired,
-    onDelete: PropTypes.func.isRequired,
+
     onUpdate: PropTypes.func.isRequired,
 }
 

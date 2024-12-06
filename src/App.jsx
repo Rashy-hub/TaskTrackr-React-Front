@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { todoSchema } from './validators/todosValidator'
 
 import TodoAddForm from './components/TodoAddForm'
+import TodoTable from './components/TodoTable'
 
 function App() {
     const { darkMode } = useTheme()
@@ -20,7 +21,8 @@ function App() {
             <Main>
                 <FormProvider {...methods}>
                     <TodoAddForm />
-                    <TodoList />
+                    {/* <TodoList /> */}
+                    <TodoTable />
                 </FormProvider>
             </Main>
         </div>
