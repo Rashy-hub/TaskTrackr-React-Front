@@ -34,7 +34,12 @@ function TodoItem({ todo, onUpdate }) {
                     autoFocus
                 />
             ) : (
-                <Link to={`todos/${todo._id}`} className="text-lg text-green-700 hover:underline">
+                <Link
+                    to={`todos/${todo._id}`}
+                    className={`${todo.status === 'DONE' ? 'line-through text-gray-400' : ''} ${
+                        todo.status === 'STANDBY' ? 'text-amber-500' : todo.status !== 'DONE' ? 'text-green-700' : ''
+                    } text-lg hover:underline`}
+                >
                     {todo.text}
                 </Link>
             )}
@@ -55,7 +60,7 @@ function TodoItem({ todo, onUpdate }) {
                 ) : (
                     <>
                         {/* Edit Button */}
-                        <button onClick={handleEditClick} className="p-1 transition hover:bg-gray-200 rounded">
+                        <button onClick={handleEditClick} className="p-1 transition hover:bg-gray-200 rounded text-amber-700">
                             <img src="/pen.svg" alt="Edit Todo" className="w-5 h-5" />
                         </button>
 
@@ -74,6 +79,7 @@ TodoItem.propTypes = {
     todo: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,
+        status: PropTypes.string.isRequired,
     }).isRequired,
 
     onUpdate: PropTypes.func.isRequired,

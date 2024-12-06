@@ -100,11 +100,17 @@ function TodoTable() {
             accessorKey: 'createdAt',
             cell: ({ getValue }) => {
                 const date = new Date(getValue())
-                return date.toLocaleDateString('en-US', {
+                const formattedDate = date.toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
                 })
+                const formattedTime = date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                })
+                return `${formattedDate} at ${formattedTime}`
             },
             // Only display this column if showCreationDate is true
             isVisible: showCreationDate,
@@ -132,7 +138,7 @@ function TodoTable() {
                     defaultValue={row.original.status}
                     onChange={(e) => updateHandler({ ...row.original, status: e.target.value })}
                 >
-                    <option value="IN_PROGRESS" className="text-neutral-900">
+                    <option value="IN PROGRESS" className="text-neutral-900">
                         In Progress
                     </option>
                     <option value="DONE" className="text-neutral-900">
