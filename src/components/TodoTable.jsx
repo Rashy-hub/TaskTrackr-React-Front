@@ -20,6 +20,7 @@ function TodoTable() {
             queryClient.invalidateQueries(['todos'])
         },
         onMutate: async (updatedTodo) => {
+            console.log('This is the todo updated ' + JSON.stringify(updatedTodo, null, 2))
             await queryClient.cancelQueries(['todos'])
             const previousTodos = queryClient.getQueryData(['todos'])
 

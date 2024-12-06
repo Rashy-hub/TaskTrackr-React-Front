@@ -30,7 +30,7 @@ const fetchTodos = {
             }
 
             let data = await response.json()
-            console.log(JSON.stringify(data))
+
             return data
         } catch (error) {
             throw new Error('Could not get Task list ' + error.message)
@@ -110,6 +110,7 @@ const fetchTodos = {
                 endpoint: '/todo/:id', // Use :id in the endpoint
                 params: { id: data._id }, // Pass id to replace :id
             })
+            console.log(JSON.stringify(data, null, 2))
             const token = sessionStorage.getItem('authToken')
 
             let response = await fetch(buildedURL, {
@@ -118,7 +119,7 @@ const fetchTodos = {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text: data.text }),
+                body: JSON.stringify(data),
                 //  credentials: 'include',
             })
 
