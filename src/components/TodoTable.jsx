@@ -116,15 +116,27 @@ function TodoTable() {
             isVisible: showCreationDate,
         },
         {
-            header: 'End Date',
-            accessorKey: 'endDate',
+            header: 'Priority',
+            accessorKey: 'priority',
             cell: ({ row }) => (
-                <input
-                    className="bg-transparent"
-                    type="date"
-                    defaultValue={row.original.endDate}
-                    onChange={(e) => updateHandler({ ...row.original, endDate: e.target.value })}
-                />
+                <select
+                    className="bg-transparent text-neutral-100"
+                    defaultValue={row.original.priority}
+                    onChange={(e) => updateHandler({ ...row.original, priority: e.target.value })}
+                >
+                    <option value="CRUCIAL" className="text-neutral-900">
+                        Crucial
+                    </option>
+                    <option value="IMPORTANT" className="text-neutral-900">
+                        Important
+                    </option>
+                    <option value="NORMAL" className="text-neutral-900">
+                        Normal
+                    </option>
+                    <option value="LOW" className="text-neutral-900">
+                        Low
+                    </option>
+                </select>
             ),
             // Only display this column if showEndDate is true
             isVisible: showEndDate,
@@ -176,13 +188,13 @@ function TodoTable() {
         <>
             {/* Checkboxes to toggle column visibility */}
             <div className="flex mb-4">
-                <label className="mr-4">
-                    <input type="checkbox" checked={showCreationDate} onChange={() => setShowCreationDate(!showCreationDate)} />
+                <label className="mr-4 font-special">
+                    <input className="mr-2" type="checkbox" checked={showCreationDate} onChange={() => setShowCreationDate(!showCreationDate)} />
                     Show Creation Date
                 </label>
-                <label>
-                    <input type="checkbox" checked={showEndDate} onChange={() => setShowEndDate(!showEndDate)} />
-                    Show End Date
+                <label className="font-special">
+                    <input className="mr-2" type="checkbox" checked={showEndDate} onChange={() => setShowEndDate(!showEndDate)} />
+                    Show Priorities
                 </label>
             </div>
 
