@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import PropTypes from 'prop-types'
-import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table'
+import { useReactTable, getCoreRowModel, flexRender, getSortedRowModel } from '@tanstack/react-table'
 import fetchTodos from '../services/fetchTodos'
 import { useState } from 'react'
 import TodoItem from './TodoItem'
@@ -10,6 +10,13 @@ function TodoTable() {
         queryFn: () => fetchTodos.getTodos(),
         queryKey: ['todos'],
     })
+    //custom sorting logic for one of our enum columns
+    const sortStatusFn = (rowA, rowB, _columnId) => {
+        const statusA = rowA.original.status
+        const statusB = rowB.original.status
+        const statusOrder = ['IN PROGRESS', 'DONE', 'STANDBY']
+        return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB)
+    }
 
     const queryClient = useQueryClient()
 
@@ -78,12 +85,14 @@ function TodoTable() {
 
     // States to manage visibility of columns
     const [showCreationDate, setShowCreationDate] = useState(false)
-    const [showEndDate, setShowEndDate] = useState(false)
+    const [showPriority, setShowPriority] = useState(false)
+    const [sorting, setSorting] = useState([])
 
     // Defining columns for the table
     const columns = [
         {
             header: 'Task',
+            sortDescFirst: false,
             accessorKey: 'text',
             cell: ({ row }) => (
                 <TodoItem
@@ -139,7 +148,7 @@ function TodoTable() {
                 </select>
             ),
             // Only display this column if showEndDate is true
-            isVisible: showEndDate,
+            isVisible: showPriority,
         },
         {
             header: 'Status',
@@ -179,6 +188,16 @@ function TodoTable() {
         data: data?.data?.todos || [],
         columns: columns.filter((col) => col.isVisible !== false), // Filter columns based on visibility state
         getCoreRowModel: getCoreRowModel(),
+
+        getSortedRowModel: getSortedRowModel(), //client-side sorting
+        onSortingChange: setSorting, //optionally control sorting state in your own scope for easy access
+        // sortingFns: {
+        //   sortStatusFn, //or provide our custom sorting function globally for all columns to be able to use
+        // },
+        //no need to pass pageCount or rowCount with client-side pagination as it is calculated automatically
+        state: {
+            sorting,
+        },
     })
 
     if (isLoading) return <div>Loading...</div>
@@ -193,7 +212,7 @@ function TodoTable() {
                     Show Creation Date
                 </label>
                 <label className="font-special">
-                    <input className="mr-2" type="checkbox" checked={showEndDate} onChange={() => setShowEndDate(!showEndDate)} />
+                    <input className="mr-2" type="checkbox" checked={showPriority} onChange={() => setShowPriority(!showPriority)} />
                     Show Priorities
                 </label>
             </div>
@@ -204,8 +223,35 @@ function TodoTable() {
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id} className="bg-gray-800">
                             {headerGroup.headers.map((header) => (
-                                <th key={header.id} className="px-4 py-2 border border-gray-700 text-left font-semibold text-gray-300">
+                                /*  <th key={header.id} className="px-4 py-2 border border-gray-700 text-left font-semibold text-gray-300">
                                     {flexRender(header.column.columnDef.header, header.getContext())}
+                                </th> */
+                                <th
+                                    key={header.id}
+                                    colSpan={header.colSpan}
+                                    className="px-4 py-2 border border-gray-700 text-left font-semibold text-gray-300"
+                                >
+                                    {header.isPlaceholder ? null : (
+                                        <div
+                                            className={header.column.getCanSort() ? 'cursor-pointer select-none' : ''}
+                                            onClick={header.column.getToggleSortingHandler()}
+                                            title={
+                                                header.column.getCanSort()
+                                                    ? header.column.getNextSortingOrder() === 'asc'
+                                                        ? 'Sort ascending'
+                                                        : header.column.getNextSortingOrder() === 'desc'
+                                                        ? 'Sort descending'
+                                                        : 'Clear sort'
+                                                    : undefined
+                                            }
+                                        >
+                                            {flexRender(header.column.columnDef.header, header.getContext())}
+                                            {{
+                                                asc: ' 🔼',
+                                                desc: ' 🔽',
+                                            }[header.column.getIsSorted()] ?? null}
+                                        </div>
+                                    )}
                                 </th>
                             ))}
                         </tr>
