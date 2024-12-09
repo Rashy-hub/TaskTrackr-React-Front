@@ -53,8 +53,8 @@ const RegisterPage = () => {
 
                             <FormInput label="User Name" name="username" placeholder="Enter your user name" />
                             <FormInput label="E-mail" name="email" placeholder="Enter your email" />
-                            <FormInput label="Password" name="password" placeholder="Enter your password" />
-                            <FormInput label="Confirm Password" name="confirmpass" placeholder="confirm your password" />
+                            <FormInput label="Password" name="password" placeholder="Enter your password" type="password" />
+                            <FormInput label="Confirm Password" name="confirmpass" placeholder="confirm your password" type="password" />
 
                             {/* {errors.confirmpass && <p className="text-red-600 text-sm">{errors.confirmpass.message}</p>} */}
 

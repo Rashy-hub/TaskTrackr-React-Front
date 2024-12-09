@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useFormContext } from 'react-hook-form'
 
-const FormInput = ({ label, name, placeholder, divstyle, type }) => {
+const FormInput = ({ label, name, placeholder, divstyle, type, defaultValue = '' }) => {
     if (!divstyle) divstyle = `mb-4` //default value
     if (!type) type = 'text'
     const methods = useFormContext()
@@ -15,6 +15,7 @@ const FormInput = ({ label, name, placeholder, divstyle, type }) => {
             )}
             <input
                 type={type}
+                value={defaultValue}
                 {...register(name)}
                 className="w-full px-4 py-2 border border-gray-300  focus:ring-2 focus:ring-blue-500 focus:outline-none text-neutral-900"
                 placeholder={placeholder}
@@ -24,6 +25,7 @@ const FormInput = ({ label, name, placeholder, divstyle, type }) => {
     )
 }
 FormInput.propTypes = {
+    defaultValue: PropTypes.string,
     label: PropTypes.string,
     type: PropTypes.string,
     name: PropTypes.string.isRequired,

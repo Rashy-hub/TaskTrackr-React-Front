@@ -59,8 +59,8 @@ const LoginPage = () => {
                         <form onSubmit={handleSubmit(onSubmit)} className="form-style">
                             <h2 className="text-2xl font-bold mb-4 ">Login</h2>
 
-                            <FormInput label="E-mail" name="email" placeholder="johndoe@gmail.com" type="email" />
-                            <FormInput label="Password" name="password" placeholder="Test123+" type="password" />
+                            <FormInput label="E-mail" name="email" placeholder="bobdoe@gmail.com" type="email" defaultValue="bobdoe@gmail.com" />
+                            <FormInput label="Password" name="password" placeholder="Test123+" type="password" defaultValue="Test123+" />
 
                             <button
                                 type="submit"
