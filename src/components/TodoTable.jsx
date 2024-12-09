@@ -4,19 +4,13 @@ import { useReactTable, getCoreRowModel, flexRender, getSortedRowModel } from '@
 import fetchTodos from '../services/fetchTodos'
 import { useState } from 'react'
 import TodoItem from './TodoItem'
+import PomodoroModal from './PomodoroModal'
 
 function TodoTable() {
     const { data, error, isLoading } = useQuery({
         queryFn: () => fetchTodos.getTodos(),
         queryKey: ['todos'],
     })
-    //custom sorting logic for one of our enum columns
-    const sortStatusFn = (rowA, rowB, _columnId) => {
-        const statusA = rowA.original.status
-        const statusB = rowB.original.status
-        const statusOrder = ['IN PROGRESS', 'DONE', 'STANDBY']
-        return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB)
-    }
 
     const queryClient = useQueryClient()
 
@@ -83,12 +77,29 @@ function TodoTable() {
         deleteMutation.mutate(todoId)
     }
 
-    // States to manage visibility of columns
+    const archiveHandler = (todo) => {
+        console.log('Archiving with this todo ' + todo)
+        updateMutation.mutate({ ...todo, isArchived: true })
+    }
+    //Modal pomodoro timer
+    const [modalIsOpen, setIsOpen] = useState(false)
+    const [currentTaskName, setCurrentTaskName] = useState({})
+
+    const pomodoroHandler = (taskName) => {
+        setCurrentTaskName(taskName)
+        setIsOpen(true)
+    }
+    const closeModalHandler = () => {
+        setCurrentTaskName({})
+        setIsOpen(false)
+    }
+
+    // States to manage visibility of columns and sort
     const [showCreationDate, setShowCreationDate] = useState(false)
     const [showPriority, setShowPriority] = useState(false)
+    const [showArchived, setShowArchived] = useState(false)
     const [sorting, setSorting] = useState([])
 
-    // Defining columns for the table
     const columns = [
         {
             header: 'Task',
@@ -121,7 +132,7 @@ function TodoTable() {
                 })
                 return `${formattedDate} at ${formattedTime}`
             },
-            // Only display this column if showCreationDate is true
+
             isVisible: showCreationDate,
         },
         {
@@ -129,6 +140,8 @@ function TodoTable() {
             accessorKey: 'priority',
             cell: ({ row }) => (
                 <select
+                    id={`priority-${row.original._id}`}
+                    name="priority"
                     className="bg-transparent text-neutral-100"
                     defaultValue={row.original.priority}
                     onChange={(e) => updateHandler({ ...row.original, priority: e.target.value })}
@@ -147,7 +160,7 @@ function TodoTable() {
                     </option>
                 </select>
             ),
-            // Only display this column if showEndDate is true
+
             isVisible: showPriority,
         },
         {
@@ -155,6 +168,8 @@ function TodoTable() {
             accessorKey: 'status',
             cell: ({ row }) => (
                 <select
+                    id={`status-${row.original._id}`}
+                    name="status"
                     className="bg-transparent text-neutral-100"
                     defaultValue={row.original.status}
                     onChange={(e) => updateHandler({ ...row.original, status: e.target.value })}
@@ -171,12 +186,25 @@ function TodoTable() {
                 </select>
             ),
         },
+
         {
             header: 'Actions',
             cell: ({ row }) => (
                 <>
                     <button className="text-red-500 ml-2" onClick={() => deleteHandler(row.original._id)}>
-                        Delete
+                        Delete 🗑️
+                    </button>
+                    <button
+                        className={`ml-2 px-4 py-2 font-semibold rounded ${
+                            row.original.status === 'DONE' ? 'text-gray-400 line-through cursor-not-allowed' : 'text-green-500 hover:text-green-600'
+                        }`}
+                        onClick={() => pomodoroHandler(row.original)}
+                        disabled={row.original.status === 'DONE'}
+                    >
+                        Pomodoro ⏰
+                    </button>
+                    <button className="text-amber-500 ml-2" onClick={() => archiveHandler(row.original)}>
+                        Archive 🗃️
                     </button>
                 </>
             ),
@@ -186,15 +214,12 @@ function TodoTable() {
     // Table instance with conditional columns
     const table = useReactTable({
         data: data?.data?.todos || [],
-        columns: columns.filter((col) => col.isVisible !== false), // Filter columns based on visibility state
+        columns: columns.filter((col) => col.isVisible !== false),
         getCoreRowModel: getCoreRowModel(),
 
         getSortedRowModel: getSortedRowModel(), //client-side sorting
-        onSortingChange: setSorting, //optionally control sorting state in your own scope for easy access
-        // sortingFns: {
-        //   sortStatusFn, //or provide our custom sorting function globally for all columns to be able to use
-        // },
-        //no need to pass pageCount or rowCount with client-side pagination as it is calculated automatically
+        onSortingChange: setSorting,
+
         state: {
             sorting,
         },
@@ -205,15 +230,42 @@ function TodoTable() {
 
     return (
         <>
+            {/*Pomodoro Modal component */}
+            <PomodoroModal modalIsOpen={modalIsOpen} closeModal={closeModalHandler} task={currentTaskName} />
             {/* Checkboxes to toggle column visibility */}
             <div className="flex mb-4">
-                <label className="mr-4 font-special">
-                    <input className="mr-2" type="checkbox" checked={showCreationDate} onChange={() => setShowCreationDate(!showCreationDate)} />
+                <label htmlFor="checkCreationDate" className="mr-4 font-special">
+                    <input
+                        id="checkCreationDate"
+                        name="checkCreationDate"
+                        className="mr-2"
+                        type="checkbox"
+                        checked={showCreationDate}
+                        onChange={() => setShowCreationDate(!showCreationDate)}
+                    />
                     Show Creation Date
                 </label>
-                <label className="font-special">
-                    <input className="mr-2" type="checkbox" checked={showPriority} onChange={() => setShowPriority(!showPriority)} />
+                <label htmlFor="checkPriority" className="font-special">
+                    <input
+                        id="checkPriority"
+                        name="checkPriority"
+                        className="mr-2"
+                        type="checkbox"
+                        checked={showPriority}
+                        onChange={() => setShowPriority(!showPriority)}
+                    />
                     Show Priorities
+                </label>
+                <label>
+                    <input
+                        id="checkArchived"
+                        name="checkArchived"
+                        className="ml-2 mr-2"
+                        type="checkbox"
+                        checked={showArchived}
+                        onChange={() => setShowArchived(!showArchived)}
+                    />
+                    Show Archived
                 </label>
             </div>
 
