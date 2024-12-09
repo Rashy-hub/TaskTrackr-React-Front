@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import fetchAuth from '../services/fetchAuth'
-import fetchTodos from '../services/fetchTodos'
+
+import fetchTopics from '../services/fetchTopics'
 
 const AuthContext = createContext()
 
@@ -51,16 +52,16 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(false)
             setAuthUser(null)
 
-            queryClient.invalidateQueries(['todos'])
+            queryClient.invalidateQueries(['topics'])
         },
         onError: (error) => {
             console.error('Logout failed:', error.message)
         },
     })
 
-    const { data: todos, error } = useQuery({
-        queryFn: () => fetchTodos.getTodos(),
-        queryKey: ['todos'],
+    const { data: topics, error } = useQuery({
+        queryFn: () => fetchTopics.getTopics(),
+        queryKey: ['topics'],
         enabled: isAuthenticated,
         onError: (err) => {
             console.error('Fetching todos failed:', err.message)
@@ -69,12 +70,12 @@ export const AuthProvider = ({ children }) => {
 
     const getApp = async () => {
         try {
-            const result = await fetchTodos.getTodos()
+            const result = await fetchTopics.getTopics()
             setIsAuthenticated(true)
             setIsAuthChecked(true)
             return result
         } catch (err) {
-            console.error('Error fetching todos:', err.message)
+            console.error('Error fetching topics:', err.message)
             setIsAuthenticated(false)
             setIsAuthChecked(true)
             throw err
@@ -121,7 +122,7 @@ export const AuthProvider = ({ children }) => {
                 isLogin,
                 loginError,
                 getApp,
-                todos,
+                topics,
                 error,
                 isLoading: !isAuthChecked,
             }}

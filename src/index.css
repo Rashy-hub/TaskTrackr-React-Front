@@ -9,6 +9,30 @@ html {
 .body-bg {
     @apply bg-neutral-900 font-sans text-neutral-100 w-full min-h-[100vh] overflow-x-hidden;
 }
+
+/*Topic Card special classes ['INTERPERSONAL', 'LEARNING', 'REVIEW', 'CHORES', 'SPORTS', 'WORK', 'SOCIAL DUTIES'] */
+.CHORES {
+    @apply bg-yellow-500;
+}
+.INTERPERSONAL {
+    @apply bg-blue-500;
+}
+.LEARNING {
+    @apply bg-green-400;
+}
+.REVIEW {
+    @apply bg-red-400;
+}
+.SPORTS {
+    @apply bg-purple-400;
+}
+.WORK {
+    @apply bg-orange-400;
+}
+.SOCIAL_DUTIES {
+    @apply bg-pink-400;
+}
+
 /* Styles pour le formulaire */
 .form-style {
     @apply bg-transparent p-6 rounded shadow-lg w-full max-w-md backdrop-blur-md;
@@ -37,6 +61,22 @@ header[data-theme='light'] {
     }
     100% {
         width: 100%;
+    }
+}
+
+/* CSS for the fade-in animation */
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* Slightly move up initially */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Go back to the original position */
     }
 }
 

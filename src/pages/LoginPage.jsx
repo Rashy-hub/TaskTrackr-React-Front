@@ -24,13 +24,13 @@ const LoginPage = () => {
     } = methods
 
     useEffect(() => {
-        if (isAuthenticated) navigate('/app/todos')
+        if (isAuthenticated) navigate('/app')
     }, [isAuthenticated, navigate])
 
     const onSubmit = async (formData) => {
         try {
             await loginAsync(formData)
-            navigate('/app/todos')
+            navigate('/app')
         } catch (error) {
             let parsedError = JSON.parse(error.message)
             setError('email', {
@@ -59,8 +59,8 @@ const LoginPage = () => {
                         <form onSubmit={handleSubmit(onSubmit)} className="form-style">
                             <h2 className="text-2xl font-bold mb-4 ">Login</h2>
 
-                            <FormInput label="E-mail" name="email" placeholder="Enter your email" type="email" />
-                            <FormInput label="Password" name="password" placeholder="Enter your password" type="password" />
+                            <FormInput label="E-mail" name="email" placeholder="johndoe@gmail.com" type="email" />
+                            <FormInput label="Password" name="password" placeholder="Test123+" type="password" />
 
                             <button
                                 type="submit"

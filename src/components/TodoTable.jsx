@@ -5,13 +5,16 @@ import fetchTodos from '../services/fetchTodos'
 import { useState } from 'react'
 import TodoItem from './TodoItem'
 import PomodoroModal from './PomodoroModal'
+import Button from './ui/Button'
+import { FaArrowLeft } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
-function TodoTable() {
+function TodoTable({ topicId }) {
     const { data, error, isLoading } = useQuery({
-        queryFn: () => fetchTodos.getTodos(),
+        queryFn: () => fetchTodos.getTodos(topicId),
         queryKey: ['todos'],
     })
-
+    const navigate = useNavigate()
     const queryClient = useQueryClient()
 
     // Mutation for updating a todo
@@ -324,11 +327,16 @@ function TodoTable() {
                     ))}
                 </tbody>
             </table>
+            <Button onClick={() => navigate(-1)} icon={<FaArrowLeft />}>
+                Go Back
+            </Button>
         </>
     )
 }
 
 TodoTable.propTypes = {
+    topicId: PropTypes.string.isRequired,
+
     data: PropTypes.shape({
         data: PropTypes.shape({
             todos: PropTypes.arrayOf(

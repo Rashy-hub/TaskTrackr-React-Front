@@ -2,27 +2,25 @@ import urlBuilder from '../utils/urlBuilder'
 
 const baseUrl = import.meta.env.VITE_BASE_URL
 
-const fetchTodos = {
-    getTodos: async (topicId) => {
+const fetchTopics = {
+    getTopics: async () => {
         try {
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
-                endpoint: '/todos/:id',
-                params: { id: topicId },
+                endpoint: '/topic',
             })
             const token = sessionStorage.getItem('authToken')
-            let response = await fetch(buildedURL, {
+            const response = await fetch(buildedURL, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token}`, // Ajout du token dans les headers
-                    'Content-Type': 'application/json', // Indiquer le type de contenu JSON
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
                 },
-                // credentials: 'include',
             })
 
             if (!response.ok) {
                 if (response.status === 404) {
-                    throw new Error('Task list Not Found (404)')
+                    throw new Error('Topics not found (404)')
                 } else if (response.status === 500) {
                     throw new Error('Server error (500)')
                 } else {
@@ -30,34 +28,32 @@ const fetchTodos = {
                 }
             }
 
-            let data = await response.json()
-
+            const data = await response.json()
             return data
         } catch (error) {
-            throw new Error('Could not get Task list ' + error.message)
+            throw new Error('Could not fetch topics: ' + error.message)
         }
     },
 
-    getTodo: async (id) => {
+    getTopic: async (id) => {
         try {
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
-                endpoint: '/todo/:id',
-                params: { id: id },
+                endpoint: '/topic/:id',
+                params: { id },
             })
             const token = sessionStorage.getItem('authToken')
-            let response = await fetch(buildedURL, {
+            const response = await fetch(buildedURL, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token}`, // Ajout du token dans les headers
-                    'Content-Type': 'application/json', // Indiquer le type de contenu JSON
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
                 },
-                //credentials: 'include',
             })
 
             if (!response.ok) {
                 if (response.status === 404) {
-                    throw new Error('Task does not exist (404)')
+                    throw new Error('Topic not found (404)')
                 } else if (response.status === 500) {
                     throw new Error('Server error (500)')
                 } else {
@@ -65,32 +61,32 @@ const fetchTodos = {
                 }
             }
 
-            let data = await response.json()
+            const data = await response.json()
             return data
         } catch (error) {
-            throw new Error('Something went wrong ' + error.message)
+            throw new Error('Could not fetch topic: ' + error.message)
         }
     },
-    postTodo: async (data) => {
+
+    postTopic: async (data) => {
         try {
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
-                endpoint: '/todo',
+                endpoint: '/topic',
             })
             const token = sessionStorage.getItem('authToken')
-            let response = await fetch(buildedURL, {
+            const response = await fetch(buildedURL, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
-                credentials: 'include',
             })
 
             if (!response.ok) {
                 if (response.status === 400) {
-                    throw new Error('Invalid data (400)')
+                    throw new Error('Invalid topic data (400)')
                 } else if (response.status === 500) {
                     throw new Error('Server error (500)')
                 } else {
@@ -98,37 +94,35 @@ const fetchTodos = {
                 }
             }
 
-            let createdData = await response.json()
+            const createdData = await response.json()
             return createdData
         } catch (error) {
-            throw new Error('Could not create Task ' + error.message)
+            throw new Error('Could not create topic: ' + error.message)
         }
     },
-    putTodo: async (data) => {
+
+    putTopic: async (data) => {
         try {
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
-                endpoint: '/todo/:id', // Use :id in the endpoint
-                params: { id: data._id }, // Pass id to replace :id
+                endpoint: '/topic/:id',
+                params: { id: data._id },
             })
-            console.log(JSON.stringify(data, null, 2))
             const token = sessionStorage.getItem('authToken')
-
-            let response = await fetch(buildedURL, {
+            const response = await fetch(buildedURL, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
-                //  credentials: 'include',
             })
 
             if (!response.ok) {
                 if (response.status === 400) {
-                    throw new Error('Invalid data (400)')
+                    throw new Error('Invalid topic data (400)')
                 } else if (response.status === 404) {
-                    throw new Error('Task not found (404)')
+                    throw new Error('Topic not found (404)')
                 } else if (response.status === 500) {
                     throw new Error('Server error (500)')
                 } else {
@@ -136,34 +130,32 @@ const fetchTodos = {
                 }
             }
 
-            let updatedData = await response.json()
+            const updatedData = await response.json()
             return updatedData
         } catch (error) {
-            throw new Error('Could not update Task ' + error.message)
+            throw new Error('Could not update topic: ' + error.message)
         }
     },
 
-    deleteTodo: async (id) => {
+    deleteTopic: async (id) => {
         try {
             const buildedURL = urlBuilder({
                 baseURL: baseUrl,
-                endpoint: '/todo/:id',
-                params: { id: id },
+                endpoint: '/topic/:id',
+                params: { id },
             })
             const token = sessionStorage.getItem('authToken')
-
-            let response = await fetch(buildedURL, {
+            const response = await fetch(buildedURL, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-                // credentials: 'include',
             })
 
             if (!response.ok) {
                 if (response.status === 404) {
-                    throw new Error('Task not found (404)')
+                    throw new Error('Topic not found (404)')
                 } else if (response.status === 500) {
                     throw new Error('Server error (500)')
                 } else {
@@ -171,11 +163,11 @@ const fetchTodos = {
                 }
             }
 
-            return { success: true, message: 'Task successfully deleted' }
+            return { success: true, message: 'Topic successfully deleted' }
         } catch (error) {
-            throw new Error('Could not delete Task ' + error.message)
+            throw new Error('Could not delete topic: ' + error.message)
         }
     },
 }
 
-export default fetchTodos
+export default fetchTopics

@@ -4,8 +4,12 @@ import Loader from './ux/Loader'
 import { useFormContext } from 'react-hook-form'
 import { useRef } from 'react'
 
-const TodoAddForm = () => {
+import PropTypes from 'prop-types'
+
+const TodoAddForm = ({ topicId }) => {
     const methods = useFormContext()
+    console.log('RECEIVEING TOTOTABLE PROP : ' + topicId)
+
     const queryClient = useQueryClient()
     const { handleSubmit, reset, register } = methods // retrieve all hook methods
     const inputRef = useRef(null)
@@ -31,6 +35,7 @@ const TodoAddForm = () => {
     const onSubmit = (formData) => {
         mutation.mutate({
             text: formData.text,
+            topicId,
         })
     }
     const onErrors = (formData) => {
@@ -54,14 +59,14 @@ const TodoAddForm = () => {
                 type="submit"
                 className="w-[50px] ml-[1px] h-10  border-l-white bg-pink-500 text-white rounded-md flex justify-center items-center border-l-0 rounded-l-none"
             >
-                <img
-                    src="/add.svg" // Chemin relatif depuis le dossier public
-                    alt="Add icon"
-                    className="w-6 h-6" // Ajustez la taille selon vos besoins
-                />
+                <img src="/add.svg" alt="Add icon" className="w-6 h-6" />
             </button>
         </form>
     )
+}
+
+TodoAddForm.propTypes = {
+    topicId: PropTypes.string.isRequired,
 }
 
 export default TodoAddForm

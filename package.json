@@ -14,6 +14,7 @@
         "@tanstack/react-query": "^5.60.6",
         "@tanstack/react-table": "^8.20.5",
         "classnames": "^2.5.1",
+        "isotope-layout": "^3.0.6",
         "prop-types": "^15.8.1",
         "react": "^18.3.1",
         "react-datepicker": "^7.5.0",

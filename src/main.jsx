@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import App from './App'
 import './index.css'
 
-import AddTodoPage from './pages/AddTodoPage'
 import TodoDetailPage from './pages/TodoDetailPage'
 import ErrorPage from './pages/ErrorPage'
 import LoginPage from './pages/LoginPage'
@@ -13,6 +12,8 @@ import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
 import HomePage from './pages/HomePage'
 import { ThemeProvider } from './context/ThemeContext'
+import TodoPage from './pages/TodoPage'
+import CreateTopicPage from './pages/CreateTopicPage'
 
 const queryClient = new QueryClient()
 
@@ -31,9 +32,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                         {/* Protected Routes */}
                         <Route element={<ProtectedRoute />}>
                             <Route path="/app" element={<App />} />
-                            <Route path="/app/todos" element={<App />} />
+                            <Route path="/app/topics" element={<App />} />
+                            <Route path="/app/topics/create" element={<CreateTopicPage />} />
+                            <Route path="/app/topics/:topicId" element={<TodoPage />} />
                             <Route path="/app/todos/:todoId" element={<TodoDetailPage />} />
-                            <Route path="/app/todos/add" element={<AddTodoPage />} />
                         </Route>
 
                         {/* Error Routes */}
