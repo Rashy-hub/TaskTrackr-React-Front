@@ -33,7 +33,7 @@ const SignButton = ({ name, variant }) => {
 
     return (
         <button className={classNames(baseStyles, variantStyles[variant])} onClick={handleClick} disabled={isLoading}>
-            name
+            {name}
         </button>
     )
 }
