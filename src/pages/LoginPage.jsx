@@ -51,8 +51,11 @@ const LoginPage = () => {
                 <Header title="Login" />
                 <Main>
                     <div className="flex items-center gap-2 border-[1px] p-2 rounded-lg border-yellow-500">
-                        <p className="font-special ">Server Status</p>
+                        <p className="font-special ">Server Status </p>
                         <div className={`rounded-full w-4 h-4 ${serverIsUp ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                        <p className="font-special ">
+                            wait <strong>60s</strong>{' '}
+                        </p>
                     </div>
 
                     <FormProvider {...methods}>
