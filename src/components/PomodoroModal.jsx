@@ -52,7 +52,7 @@ const PomodoroModal = ({ modalIsOpen, closeModal, task }) => {
             }}
             ariaHideApp={false}
         >
-            <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+            <div className="bg-white rounded-lg shadow-lg w-[620px] p-6 relative">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
                     <span className="text-indigo-600">{task.text}</span>
                 </h2>

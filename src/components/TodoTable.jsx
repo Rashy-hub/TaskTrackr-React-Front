@@ -265,7 +265,7 @@ function TodoTable() {
                         checked={showArchived}
                         onChange={() => setShowArchived(!showArchived)}
                     />
-                    Show Archived
+                    Show Archived (WIP 🚧)
                 </label>
             </div>
 
