@@ -73,7 +73,7 @@ function TodoTable({ topicId }) {
     })
 
     const updateHandler = (todo) => {
-        updateMutation.mutate(todo)
+        updateMutation.mutate({ ...todo, topicId })
     }
 
     const deleteHandler = (todoId) => {
