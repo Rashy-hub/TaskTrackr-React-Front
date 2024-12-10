@@ -82,7 +82,7 @@ function TodoTable({ topicId }) {
 
     const archiveHandler = (todo) => {
         console.log('Archiving with this todo ' + todo)
-        updateMutation.mutate({ ...todo, isArchived: true })
+        updateMutation.mutate({ ...todo, topicId, isArchived: true })
     }
     //Modal pomodoro timer
     const [modalIsOpen, setIsOpen] = useState(false)
